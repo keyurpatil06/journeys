@@ -7,7 +7,7 @@ const TravelCard = ({ id, title, description, imgURL }: TravelCardProps) => {
     return (
         <Link
             href={`/post/${id}`}
-            className="rounded-2xl p-4 bg-slate-400"
+            className="rounded-2xl p-1.5 bg-slate-400 w-fit hover:scale-105 transition duration-300 ease-in-out"
         >
             <div className="max-w-96 relative">
 
@@ -23,7 +23,7 @@ const TravelCard = ({ id, title, description, imgURL }: TravelCardProps) => {
 
                 <div className="absolute inset-0" />
 
-                <div className="absolute bottom-0 text-white p-4 bg-black/30 rounded-xl w-full">
+                <div className="absolute bottom-0 text-white p-4 bg-black/30 backdrop-blur-xs  rounded-xl w-full">
                     <h2 className="text-lg font-semibold">{title}</h2>
                     <p className="text-sm opacity-90 line-clamp-2">
                         {description}

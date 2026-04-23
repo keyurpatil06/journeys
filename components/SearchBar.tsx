@@ -3,12 +3,12 @@ import { Search } from "lucide-react"
 
 const SearchBar = () => {
     return (
-        <div className="relative w-full">
+        <div className="relative w-full mt-4">
             <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
                 type="text"
                 placeholder="Search places..."
-                className="px-8 py-4 w-full"
+                className="px-8 py-4 w-full bg-white border-2 border-slate-400"
             />
         </div>
     )
