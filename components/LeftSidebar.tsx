@@ -1,10 +1,22 @@
 "use client"
 
 import { sideBarLinks } from "@/constants"
+import { authClient } from "@/lib/auth-client"
 import Image from "next/image"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 const LeftSideBar = ({ user }: SidebarProps) => {
+    const handleSignOut = async () => {
+        return await authClient.signOut({
+            fetchOptions: {
+                onSuccess: () => {
+                    redirect('/sign-in')
+                }
+            }
+        })
+    }
+
     return (
         <section className="sidebar">
             <nav className="flex flex-col gap-4">
@@ -35,7 +47,9 @@ const LeftSideBar = ({ user }: SidebarProps) => {
                 </div>
 
                 <div>
-                    LOGOUT
+                    <button onClick={handleSignOut}>
+                        Sign Out
+                    </button>
                 </div>
             </footer>
         </section>
