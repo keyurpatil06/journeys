@@ -1,25 +1,24 @@
-'use client'
-
 import Cards from "@/components/Cards"
 import Header from "@/components/Header"
+import MapPreviewWrapper from "@/components/MapPreviewWrapper"
 import SearchBar from "@/components/SearchBar"
 import { travelCardsData } from "@/constants"
-import dynamic from "next/dynamic"
+import { auth } from "@/lib/auth"
+import { headers } from "next/headers"
 
-const MapPreview = dynamic(() => import('@/components/MapPreview'), {
-    ssr: false,
-})
-
-const page = () => {
-    const loggedIn = 'Keyur';
+const page = async () => {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    })
+    const loggedIn = session?.user.name;
 
     return (
         <div className="w-full min-h-screen flex flex-col p-4 bg-slate-200">
-            <Header user={loggedIn} />
+            <Header user={loggedIn!} />
             <SearchBar />
 
             <div className="map-preview">
-                <MapPreview />
+                <MapPreviewWrapper />
             </div>
 
             <div className="places-cards">

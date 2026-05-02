@@ -6,7 +6,9 @@ import { nextCookies } from "better-auth/next-js";
 const { MONGODB_URI, BETTER_AUTH_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } =
   process.env;
 
-const client = new MongoClient(MONGODB_URI!);
+const client = new MongoClient(MONGODB_URI!, {
+  tls: true,
+});
 const db = client.db();
 
 export const auth = betterAuth({

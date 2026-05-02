@@ -21,6 +21,12 @@ export const sideBarLinks = [
   },
 ];
 
+export const SearchTabs = [
+  { key: "places", label: "Places" },
+  { key: "lists", label: "Lists" },
+  { key: "profile", label: "Users" },
+];
+
 export const travelCardsData = [
   {
     id: "1",

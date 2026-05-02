@@ -42,12 +42,15 @@ const LeftSideBar = ({ user }: SidebarProps) => {
 
             <footer>
                 <div>
-                    <h1>USERNAME</h1>
-                    <p>EMAIL</p>
+                    <h1>{user.name}</h1>
+                    <p>{user.email}</p>
                 </div>
 
                 <div>
-                    <button onClick={handleSignOut}>
+                    <button
+                        onClick={handleSignOut}
+                        className="cursor-pointer px-4 py-2 rounded-xl bg-amber-100"
+                    >
                         Sign Out
                     </button>
                 </div>

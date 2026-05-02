@@ -1,7 +1,11 @@
 declare interface User {
   id: string;
-  name: string;
+  createdAt: Date;
+  updatedAt: Date;
   email: string;
+  emailVerified: boolean;
+  name: string;
+  image?: string | null | undefined;
 }
 
 declare interface SidebarProps {
@@ -23,3 +27,12 @@ declare interface TravelCardProps {
   description: string;
   imgURL: string;
 }
+
+declare type Tab = "places" | "lists" | "profile";
+
+declare type SearchedPlace = {
+  id: number;
+  name: string;
+  lat: string;
+  lon: string;
+};
