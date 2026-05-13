@@ -1,74 +1,80 @@
 "use server";
 
-const { MAPS_URL } = process.env;
+const {
+    GEOAPIFY_API_KEY,
+    GEOAPIFY_BASE_URL
+} = process.env;
+
+// TODO: Check response of APIs to see what all it returns
 
 export const searchPlaces = async (query: string) => {
-  if (!query) {
-    return [];
-  }
+    try {
+        const res = await fetch(`${GEOAPIFY_BASE_URL}/v1/geocode/autocomplete?text=${encodeURIComponent(query)}&apiKey=${GEOAPIFY_API_KEY}`);
 
-  // TODO: Edit limit
-  // const url = `${MAPS_URL}&q=${encodeURIComponent(query)}&limit=5`;
-  const url = `${MAPS_URL}&q=${encodeURIComponent(query)}`;
-  const res = await fetch(url, {
-    headers: {
-      "User-Agent": "Journeys/1.0 (oane320@gmail.com)",
-    },
-    cache: "no-store",
-  });
+        if (!res.ok) {
+            throw new Error("Failed to search places");
+        }
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch places");
-  }
+        const data = await res.json();
 
-  const data = await res.json();
-
-  return data.map((place: any) => ({
-    id: place.place_id,
-    name: place.display_name,
-    lat: place.lat,
-    lon: place.lon,
-  }));
+        return (
+            data.features?.map(
+                (place: any) => ({
+                    id: place.properties.place_id,
+                    name: place.properties.formatted,
+                    lat: place.properties.lat,
+                    lon: place.properties.lon,
+                })
+            ) || []
+        );
+    } catch (error) {
+        console.log("Error fetching places: ", error);
+        return [];
+    }
 };
 
 export const searchNearbyPlaces = async (
-  lat: number,
-  lon: number,
-  type: "restaurant" | "cafe" | "hotel",
+    query: string,
+    type: Category,
+    lat?: number,
+    lon?: number,
 ) => {
-  const tag =
-    type === "hotel" ? '["tourism"="hotel"]' : `["amenity"="${type}"]`;
+    try {
+        const categoryMap: Record<string, string> = {
+            hotel: "accommodation.hotel",
+            cafe_restaurant: "catering.cafe,catering.restaurant",
+        };
 
-  const query = `
-    [out:json][timeout:25];
+        const category = categoryMap[type];
+        let url: string;
 
-    (
-      node${tag}(around:3000,${lat},${lon});
-      way${tag}(around:3000,${lat},${lon});
-      relation${tag}(around:3000,${lat},${lon});
-    );
+        // TODO: Go through urls once - edit
+        if (lat !== undefined && lon !== undefined) {
+            url = `${GEOAPIFY_BASE_URL}/v2/places?categories=${category}&filter=circle:${lon},${lat},20000&bias=proximity:${lon},${lat}&name=${encodeURIComponent(query)}limit=20&apiKey=${GEOAPIFY_API_KEY}`;
+        } else {
+            url = `${GEOAPIFY_BASE_URL}/v1/geocode/autocomplete?text=${encodeURIComponent(query)}&filter=category:${category}&limit=20&apiKey=${GEOAPIFY_API_KEY}`;
+        }
 
-    out center;
-  `;
+        const res = await fetch(url);
 
-  const res = await fetch("https://overpass-api.de/api/interpreter", {
-    method: "POST",
+        if (!res.ok) {
+            throw new Error("Failed to search nearby places");
+        }
 
-    body: "data=" + encodeURIComponent(query),
+        const data = await res.json();
 
-    cache: "no-store",
-  });
-
-  const data = await res.json();
-
-  return data.elements
-    .filter((place: any) => place.tags?.name)
-    .map((place: any) => ({
-      id: place.id,
-      name: place.tags.name,
-
-      lat: place.lat ?? place.center?.lat,
-
-      lon: place.lon ?? place.center?.lon,
-    }));
+        return (
+            data.features?.map(
+                (place: any) => ({
+                    id: place.properties.place_id ?? place.properties.osm_id,
+                    name: place.properties.name ?? place.properties.formatted,
+                    lat: place.properties.lat,
+                    lon: place.properties.lon,
+                })
+            ) || []
+        );
+    } catch (error) {
+        console.log("Error fetching nearby places: ", error);
+        return [];
+    }
 };

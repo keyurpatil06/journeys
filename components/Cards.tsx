@@ -1,5 +1,3 @@
-'use client'
-
 import TravelCard from "./TravelCard"
 
 const Cards = ({ cards }: { cards: CardsProps }) => {
