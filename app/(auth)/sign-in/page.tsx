@@ -18,6 +18,7 @@ const Page = () => {
                         alt='logo'
                         width={32}
                         height={32}
+                        className="size-10"
                     />
                     <h1>Journeys</h1>
                 </Link>
@@ -27,11 +28,12 @@ const Page = () => {
                         <figure>
                             {Array.from({ length: 5 }).map((_, index) => (
                                 <Image
+                                key={index}
                                     src='/assets/icons/star.svg'
                                     alt="star"
                                     width={20}
                                     height={20}
-                                    key={index}
+                                    className="size-6"
                                 />
                             ))}
                         </figure>
@@ -42,7 +44,7 @@ const Page = () => {
                                 alt='jason'
                                 width={64}
                                 height={64}
-                                className="rounded-full"
+                                className="rounded-full size-14"
                             />
                             <div>
                                 <h2>Jason Rivera</h2>
@@ -63,6 +65,7 @@ const Page = () => {
                             alt='logo'
                             width={40}
                             height={40}
+                            className="size-10"
                         />
                         <h1>Journeys</h1>
                     </Link>
@@ -73,8 +76,9 @@ const Page = () => {
                             alt='google'
                             width={22}
                             height={22}
+                            className="w-8 h-8"
                         />
-                        <span>Sign in with Google</span>
+                        <span className="text-lg">Sign in with Google</span>
                     </button>
                 </section>
             </aside>

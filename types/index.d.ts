@@ -36,3 +36,8 @@ declare type SearchedPlace = {
   lat: string;
   lon: string;
 };
+
+declare interface MapPreviewProps {
+  position?: [number, number];
+  height?: string;
+}

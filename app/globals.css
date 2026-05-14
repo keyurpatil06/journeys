@@ -213,7 +213,7 @@
         }
 
         button {
-          @apply w-full flex justify-center items-center gap-2.5 bg-white border border-gray-200 rounded-full py-4 text-base text-gray-900 font-semibold cursor-pointer tracking-tight;
+          @apply w-full flex justify-center items-center gap-2.5 bg-purple-100 border border-gray-200 rounded-full py-4 text-base text-gray-900 font-semibold cursor-pointer tracking-tight;
         }
       }
     }
