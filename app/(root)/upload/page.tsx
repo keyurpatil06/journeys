@@ -4,21 +4,7 @@ import { useState } from "react";
 import SearchPlaces from "@/components/SearchPlaces";
 import JourneyPlaceCard from "@/components/JourneyPlaceCard";
 import { Input } from "@/components/ui/input";
-import { searchNearbyPlaces } from "@/lib/actions/search";
-
-type NearbyPlace = {
-    id: number;
-    name: string;
-    lat: number;
-    lon: number;
-};
-
-type JourneyPlace = SearchedPlace & {
-    images: string[];
-    description: string;
-    hotels: NearbyPlace[];
-    cafesAndRestaurants: NearbyPlace[];
-};
+import { searchNearbyPlaces } from "@/lib/actions/search.actions";
 
 const UploadTripPlan = () => {
     const [title, setTitle] = useState("");

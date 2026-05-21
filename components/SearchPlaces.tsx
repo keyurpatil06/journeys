@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { SearchTabs } from "@/constants";
-import { searchPlaces } from "@/lib/actions/search";
+import { searchPlaces } from "@/lib/actions/search.actions";
 import { Search, X } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import MapPreview from "@/components/MapPreview";

@@ -3,10 +3,18 @@
 import { authClient } from "@/lib/auth-client"
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 
 const Page = () => {
+    const [isLoading, setIsLoading] = useState(false)
+
     const handleSignIn = async () => {
-        return await authClient.signIn.social({ provider: 'google' })
+        setIsLoading(true)
+        try {
+            return await authClient.signIn.social({ provider: 'google' })
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -28,7 +36,7 @@ const Page = () => {
                         <figure>
                             {Array.from({ length: 5 }).map((_, index) => (
                                 <Image
-                                key={index}
+                                    key={index}
                                     src='/assets/icons/star.svg'
                                     alt="star"
                                     width={20}
@@ -70,7 +78,7 @@ const Page = () => {
                         <h1>Journeys</h1>
                     </Link>
                     <p>Create and share your very first <span>Journey</span> in no time!</p>
-                    <button onClick={handleSignIn}>
+                    <button onClick={handleSignIn} disabled={isLoading}>
                         <Image
                             src='/assets/icons/google.svg'
                             alt='google'
@@ -78,7 +86,7 @@ const Page = () => {
                             height={22}
                             className="w-8 h-8"
                         />
-                        <span className="text-lg">Sign in with Google</span>
+                        <span className="text-lg">{isLoading ? 'Signing you in...' : 'Sign in with Google'}</span>
                     </button>
                 </section>
             </aside>

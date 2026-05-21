@@ -99,3 +99,48 @@ declare type NearbySearchSectionProps = {
   lat?: number;
   lon?: number;
 };
+
+declare interface ChatMessageItem {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+}
+
+declare interface ActivityItem {
+  time: string;
+  title: string;
+  location: string;
+}
+
+declare interface ItineraryPlace {
+  id: string;
+  name: string;
+  description: string;
+  category: string;
+  image: string;
+  coords: [number, number];
+}
+
+declare interface NearbyPlacesGroup {
+  cafes: ItineraryPlace[];
+  restaurants: ItineraryPlace[];
+  hotels: ItineraryPlace[];
+}
+
+declare interface TravelItinerary {
+  title: string;
+  location: string;
+  duration: string;
+  budget: string;
+  overview: string;
+  days: {
+    day: string;
+    summary: string;
+    activities: ActivityItem[];
+    travelTips: string;
+  }[];
+  recommendedPlaces: ItineraryPlace[];
+  nearby: NearbyPlacesGroup;
+}
+
+declare type TravelPlanResult = TravelItinerary | { error: string };
