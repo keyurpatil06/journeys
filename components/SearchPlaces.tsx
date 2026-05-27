@@ -87,7 +87,7 @@ const SearchPlaces = ({
 
                         <Input
                             type="text"
-                            placeholder="Search places, lists, profiles..."
+                            placeholder="Search places..."
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             className="pl-9 pr-9 py-4 w-full bg-white border-2 border-slate-400"

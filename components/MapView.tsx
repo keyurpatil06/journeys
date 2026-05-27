@@ -17,6 +17,16 @@ const ChangeMapView = ({ coords, zoom, duration = 0.95 }: { coords: [number, num
     return null
 }
 
+// const ChangeMapView = ({ coords }: { coords: [number, number] }) => {
+//     const map = useMap()
+
+//     useEffect(() => {
+//         map.panTo(coords, { animate: true })
+//     }, [coords, map])
+
+//     return null
+// }
+
 type BaseMapViewProps = {
     height?: string
     className?: string
@@ -43,7 +53,8 @@ const MapView = (props: MapViewProps) => {
     const previewProps = isPreview ? props : null
     const selectedPlace = !isPreview ? props.places.find((place) => place.id === props.selectedPlaceId) : undefined
     const center: [number, number] = isPreview ? currentPosition ?? DEFAULT_LOCATION : selectedPlace?.coords ?? props.places[0]?.coords ?? DEFAULT_LOCATION
-    const zoom = isPreview ? 14 : selectedPlace ? 11 : 5
+    const zoom = isPreview ? 12 : selectedPlace ? 16 : 8
+    // const zoom = isPreview ? 15 : 13
 
     useEffect(() => {
         if (!isPreview) {
