@@ -1,20 +1,29 @@
 "use client"
 
+import { useState } from "react"
 import { sideBarLinks } from "@/constants"
 import { authClient } from "@/lib/auth-client"
 import Image from "next/image"
 import Link from "next/link"
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 
 const LeftSideBar = ({ user }: SidebarProps) => {
+    const router = useRouter()
+    const [isSigningOut, setIsSigningOut] = useState(false)
+
     const handleSignOut = async () => {
-        return await authClient.signOut({
-            fetchOptions: {
-                onSuccess: () => {
-                    redirect('/sign-in')
-                }
-            }
-        })
+        // Optimistic UI: prevent further navigation immediately
+        setIsSigningOut(true)
+        router.push("/sign-in")
+
+        try {
+            // Fire-and-forget server sign-out; UI already updated
+            await authClient.signOut()
+        } catch (err) {
+            console.error("Sign out failed:", err)
+        } finally {
+            setIsSigningOut(false)
+        }
     }
 
     return (
@@ -28,15 +37,13 @@ const LeftSideBar = ({ user }: SidebarProps) => {
                 </Link>
 
                 {sideBarLinks.map(({ imgURL, label, route }) => (
-                    <Link href={route} key={label}>
-                        {/* <Image
-                            src={imgURL}
-                            alt={label}
-                            width={40}
-                            height={40}
-                        /> */}
-                        <span className="text-lg font-normal">{label}</span>
-                    </Link>
+                    isSigningOut ? (
+                        <div key={label} className="text-lg font-normal opacity-50 cursor-not-allowed">{label}</div>
+                    ) : (
+                        <Link href={route} key={label}>
+                            <span className="text-lg font-normal">{label}</span>
+                        </Link>
+                    )
                 ))}
             </nav>
 
@@ -49,9 +56,10 @@ const LeftSideBar = ({ user }: SidebarProps) => {
                 <div>
                     <button
                         onClick={handleSignOut}
-                        className="cursor-pointer px-4 py-2 rounded-xl bg-amber-100"
+                        disabled={isSigningOut}
+                        className="cursor-pointer px-4 py-2 rounded-xl bg-amber-100 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Sign Out
+                        {isSigningOut ? "Signing out..." : "Sign Out"}
                     </button>
                 </div>
             </footer>
