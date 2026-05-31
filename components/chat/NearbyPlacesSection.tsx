@@ -1,12 +1,5 @@
 "use client"
 
-interface NearbyPlacesSectionProps {
-    title: string
-    items: ItineraryPlace[]
-    selectedId?: string
-    onSelect: (id: string) => void
-}
-
 const NearbyPlacesSection = ({ title, items, selectedId, onSelect }: NearbyPlacesSectionProps) => {
     return (
         <div className="rounded-3xl border border-border bg-white p-5 shadow-sm">

@@ -4,12 +4,6 @@ import DayPlanCard from "@/components/chat/DayPlanCard"
 import NearbyPlacesSection from "@/components/chat/NearbyPlacesSection"
 import PlaceCard from "@/components/chat/PlaceCard"
 
-interface ItineraryCardProps {
-    itinerary: TravelItinerary
-    selectedPlaceId?: string
-    onSelectPlace: (id: string) => void
-}
-
 const ItineraryCard = ({ itinerary, selectedPlaceId, onSelectPlace }: ItineraryCardProps) => {
     return (
         <section className="space-y-8 rounded-[34px] border border-border bg-white p-6 shadow-xl">

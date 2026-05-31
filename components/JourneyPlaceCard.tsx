@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { Trash2, Hotel, Coffee, X } from "lucide-react";
+import { CldUploadWidget } from "next-cloudinary";
 import NearbySearchSection from "./NearbySearchSection";
+
+const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
 
 const JourneyPlaceCard = ({
     place,
@@ -17,30 +20,18 @@ const JourneyPlaceCard = ({
     const [cafeRestaurantQuery, setCafeRestaurantQuery] = useState("");
     const [hotelResults, setHotelResults] = useState<NearbyPlace[]>([]);
     const [cafeRestaurantResults, setCafeRestaurantResults] = useState<NearbyPlace[]>([]);
+    const [isUploading, setIsUploading] = useState(false);
 
-    const handleImageSelect = (files: FileList | null) => {
-        if (!files) return;
-
-        const selectedFiles = Array.from(files);
-        const totalCount = place.images.length + selectedFiles.length;
-        if (totalCount > 5) {
-            alert("Maximum 5 images allowed.");
-            return;
+    const handleCloudinarySuccess = (results: any) => {
+        const url = results?.info?.secure_url;
+        if (url) {
+            updateImages(place.id, [...place.images, url]);
         }
+    };
 
-        const newPreviews: string[] = [];
-
-        for (const file of selectedFiles) {
-            if (file.size > 2 * 1024 * 1024) {
-                alert(`${file.name} is larger than 2MB and was skipped.`);
-                continue;
-            }
-            newPreviews.push(URL.createObjectURL(file));
-        }
-
-        if (newPreviews.length > 0) {
-            updateImages(place.id, [...place.images, ...newPreviews]);
-        }
+    const handleCloudinaryError = (error: any) => {
+        console.error("Cloudinary upload error", error);
+        alert("Image upload failed. Please try again.");
     };
 
     const removeImage = (index: number) => {
@@ -67,16 +58,42 @@ const JourneyPlaceCard = ({
                             <p className="font-medium">Upload images</p>
                             <p className="text-sm text-gray-500">Up to 5 images, max 2MB each.</p>
                         </div>
-                        <label className="cursor-pointer rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-700 hover:bg-slate-200 transition">
-                            Select files
-                            <input
-                                type="file"
-                                accept="image/*"
-                                multiple
-                                className="hidden"
-                                onChange={(e) => handleImageSelect(e.target.files)}
-                            />
-                        </label>
+                        {uploadPreset ? (
+                            <CldUploadWidget
+                                uploadPreset={uploadPreset}
+                                onSuccess={(result) => {
+                                    handleCloudinarySuccess(result);
+                                    setIsUploading(false);
+                                }}
+                                onError={(error) => {
+                                    handleCloudinaryError(error);
+                                    setIsUploading(false);
+                                }}
+                                onOpen={() => setIsUploading(true)}
+                                onClose={() => setIsUploading(false)}
+                                options={{
+                                    maxFiles: 5,
+                                    maxFileSize: 2 * 1024 * 1024,
+                                    clientAllowedFormats: ["png", "jpg", "jpeg", "webp"],
+                                    multiple: true,
+                                    sources: ["local"],
+                                }}
+                            >
+                                {({ open, isLoading }) => (
+                                    <button
+                                        type="button"
+                                        onClick={() => open()}
+                                        className="rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-700 hover:bg-slate-200 transition"
+                                    >
+                                        {isUploading || isLoading ? "Uploading..." : "Select files"}
+                                    </button>
+                                )}
+                            </CldUploadWidget>
+                        ) : (
+                            <div className="text-sm text-red-500">
+                                Configure <code>'Upload Preset'</code> to enable image uploads.
+                            </div>
+                        )}
                     </div>
 
                     {place.images.length > 0 ? (

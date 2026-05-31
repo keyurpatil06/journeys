@@ -1,12 +1,5 @@
 "use client"
 
-interface DayPlanCardProps {
-    day: string
-    summary: string
-    activities: { time: string; title: string; location: string }[]
-    travelTips: string
-}
-
 const DayPlanCard = ({ day, summary, activities, travelTips }: DayPlanCardProps) => {
     return (
         <div className="rounded-3xl border border-border bg-white p-5 shadow-sm">

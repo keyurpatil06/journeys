@@ -144,3 +144,58 @@ declare interface TravelItinerary {
 }
 
 declare type TravelPlanResult = TravelItinerary | { error: string };
+
+declare interface DayPlanCardProps {
+  day: string
+  summary: string
+  activities: { time: string; title: string; location: string }[]
+  travelTips: string
+}
+
+declare interface ChatInputProps {
+  value: string
+  onChange: (value: string) => void
+  onSend: () => void
+  loading: boolean
+}
+
+declare interface ChatMessageProps {
+  role: "user" | "assistant"
+  message: string
+}
+
+declare interface ItineraryCardProps {
+  itinerary: TravelItinerary
+  selectedPlaceId?: string
+  onSelectPlace: (id: string) => void
+}
+
+declare interface NearbyPlacesSectionProps {
+  title: string
+  items: ItineraryPlace[]
+  selectedId?: string
+  onSelect: (id: string) => void
+}
+
+declare interface PlaceCardProps {
+  place: ItineraryPlace
+  selected?: boolean
+  onSelect: (id: string) => void
+}
+
+declare interface JourneyList {
+  _id?: string;
+  userId?: string | null;
+  userEmail?: string | null;
+  title: string;
+  tripDescription: string;
+  places: JourneyPlace[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+declare type JourneyListPayload = {
+  title: string;
+  tripDescription: string;
+  places: JourneyPlace[];
+};

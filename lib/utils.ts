@@ -1,3 +1,4 @@
+import { categoryImages } from "@/constants"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -20,4 +21,12 @@ export const extractJson = (text: string) => {
         throw new Error("Invalid AI response: no JSON object found");
     }
     return text.slice(first, last + 1);
+};
+
+export const getCategoryImage = (category: string) => {
+    const normalized = Object.keys(categoryImages).find((key) =>
+        category?.toLowerCase().includes(key.toLowerCase())
+    );
+    const bucket = normalized ? categoryImages[normalized] : categoryImages.Default;
+    return bucket[Math.floor(Math.random() * bucket.length)];
 };

@@ -1,14 +1,7 @@
 "use client"
 
-import { Send } from "lucide-react"
+import { Loader2, Send } from "lucide-react"
 import { Button } from "@/components/ui/button"
-
-interface ChatInputProps {
-    value: string
-    onChange: (value: string) => void
-    onSend: () => void
-    loading: boolean
-}
 
 const ChatInput = ({ value, onChange, onSend, loading }: ChatInputProps) => {
     return (
@@ -36,8 +29,17 @@ const ChatInput = ({ value, onChange, onSend, loading }: ChatInputProps) => {
                     disabled={loading || !value.trim()}
                     className="rounded-full px-5 py-3 font-semibold"
                 >
-                    {loading ? "Planning…" : "Generate itinerary"}
-                    <Send className="h-4 w-4" />
+                    {loading ? (
+                        <>
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                            Planning your trip...
+                        </>
+                    ) : (
+                        <>
+                            Generate itinerary
+                            <Send className="h-4 w-4" />
+                        </>
+                    )}
                 </Button>
             </div>
         </div>

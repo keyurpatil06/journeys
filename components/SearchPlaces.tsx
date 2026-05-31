@@ -19,12 +19,8 @@ const SearchPlaces = ({
     const [query, setQuery] = useState("");
     const [activeTab, setActiveTab] = useState<Tab>("places");
     const [places, setPlaces] = useState<SearchedPlace[]>([]);
-    const [selectedPosition, setSelectedPosition] = useState<[number, number]>(
-        defaultLocation
-    );
-    const [selectedPlace, setSelectedPlace] = useState<SearchedPlace | null>(
-        null
-    );
+    const [selectedPosition, setSelectedPosition] = useState<[number, number]>(defaultLocation);
+    const [selectedPlace, setSelectedPlace] = useState<SearchedPlace | null>(null);
 
     const [isPending, startTransition] = useTransition();
 

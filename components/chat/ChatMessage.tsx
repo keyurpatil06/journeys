@@ -1,10 +1,5 @@
 "use client"
 
-interface ChatMessageProps {
-    role: "user" | "assistant"
-    message: string
-}
-
 const ChatMessage = ({ role, message }: ChatMessageProps) => {
     const bubbleClass = role === "user"
         ? "self-end bg-slate-900 text-white"

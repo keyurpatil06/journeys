@@ -5,11 +5,13 @@ import SearchPlaces from "@/components/SearchPlaces";
 import JourneyPlaceCard from "@/components/JourneyPlaceCard";
 import { Input } from "@/components/ui/input";
 import { searchNearbyPlaces } from "@/lib/actions/search.actions";
+import { saveJourneyList } from "@/lib/actions/journey.actions";
 
 const UploadTripPlan = () => {
     const [title, setTitle] = useState("");
     const [tripDescription, setTripDescription] = useState("");
     const [journeyPlaces, setJourneyPlaces] = useState<JourneyPlace[]>([]);
+    const [isSaving, setIsSaving] = useState(false);
 
     const handlePlaceSelect = (place: SearchedPlace) => {
         const alreadyExists = journeyPlaces.find((p) => p.id === place.id);
@@ -86,13 +88,36 @@ const UploadTripPlan = () => {
     };
 
     const handlePublish = async () => {
-        const payload = {
-            title,
-            tripDescription,
-            places: journeyPlaces,
-        };
-        console.log(payload);
-        alert("Journey saved locally");
+        if (!title.trim() || !tripDescription.trim()) {
+            alert("Please add a journey title and description.");
+            return;
+        }
+
+        if (journeyPlaces.length === 0) {
+            alert("Add at least one place before publishing.");
+            return;
+        }
+
+        setIsSaving(true);
+
+        try {
+            const result = await saveJourneyList({
+                title,
+                tripDescription,
+                places: journeyPlaces,
+            });
+
+            console.log("Saved journey list:", result);
+            alert("Journey saved!");
+            setTitle("");
+            setTripDescription("");
+            setJourneyPlaces([]);
+        } catch (error) {
+            console.log(error);
+            alert("Unable to save journey. Please try again.");
+        } finally {
+            setIsSaving(false);
+        }
     };
 
     const searchNearby = async (query: string, type: Category, lat?: number, lon?: number) => {
@@ -149,9 +174,10 @@ const UploadTripPlan = () => {
                     {/* PUBLISH */}
                     <button
                         onClick={handlePublish}
-                        className="w-full bg-black text-white py-3 rounded-2xl"
+                        disabled={isSaving}
+                        className="w-full bg-black text-white py-3 rounded-2xl disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        Publish Journey
+                        {isSaving ? "Saving..." : "Publish Journey"}
                     </button>
                 </div>
             </div>

@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== "production") {
   global.mongoClient = client;
 }
 
-const db = client.db();
+export const db = client.db();
 
 export const auth = betterAuth({
   baseURL: BETTER_AUTH_URL!,

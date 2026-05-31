@@ -1,12 +1,10 @@
 "use client"
 
-interface PlaceCardProps {
-    place: ItineraryPlace
-    selected?: boolean
-    onSelect: (id: string) => void
-}
+import { getCategoryImage } from "@/lib/utils";
 
 const PlaceCard = ({ place, selected, onSelect }: PlaceCardProps) => {
+    const imageSrc = getCategoryImage(place.category || "");
+
     return (
         <button
             type="button"
@@ -15,7 +13,7 @@ const PlaceCard = ({ place, selected, onSelect }: PlaceCardProps) => {
                 }`}
         >
             <div className="aspect-16/10 overflow-hidden bg-slate-100">
-                <img src={place.image} alt={place.name} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
+                <img src={imageSrc} alt={place.name} className="h-full w-full object-cover transition duration-300 group-hover:scale-105" />
             </div>
             <div className="space-y-3 p-4">
                 <div className="flex items-center justify-between gap-3">

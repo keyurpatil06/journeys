@@ -6,6 +6,7 @@ import ChatMessage from "@/components/chat/ChatMessage"
 import ItineraryCard from "@/components/chat/ItineraryCard"
 import InteractiveMap from "@/components/chat/InteractiveMap"
 import { generateTravelPlan } from "@/lib/actions/aiChat.actions"
+import { resolvePlaceCoordinates } from "@/lib/actions/search.actions"
 
 const AiChat = () => {
     const [query, setQuery] = useState("")
@@ -57,9 +58,29 @@ const AiChat = () => {
                 ])
             } else {
                 console.log(result);
-                
-                setItinerary(result)
-                setSelectedPlaceId(result.recommendedPlaces[0]?.id)
+
+                const recommendedPlaces = await Promise.all(
+                    result.recommendedPlaces.map(async (place) => {
+                        try {
+                            const resolvedCoords = await resolvePlaceCoordinates(place.name, result.location);
+                            return {
+                                ...place,
+                                coords: resolvedCoords ?? place.coords,
+                            };
+                        } catch (error) {
+                            console.warn("Failed to resolve coords for", place.name, error);
+                            return place;
+                        }
+                    })
+                );
+
+                const sanitizedResult = {
+                    ...result,
+                    recommendedPlaces,
+                };
+
+                setItinerary(sanitizedResult)
+                setSelectedPlaceId(sanitizedResult.recommendedPlaces[0]?.id)
                 setMessages((prev) => [
                     ...prev,
                     {
@@ -70,7 +91,7 @@ const AiChat = () => {
                 ])
             }
         } catch (error) {
-            console.error("Google AI travel plan failed:", error)
+            console.log("Google AI travel plan failed:", error)
             setItinerary(null)
             setMessages((prev) => [
                 ...prev,
