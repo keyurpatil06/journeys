@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 const TravelCard = ({ id, title, description, imgURL }: TravelCardProps) => {
-    const imageSrc = `https://picsum.photos/seed/${id}/800/600` // TODO
+    const imageSrc = imgURL || `https://picsum.photos/seed/${id}/800/600`
 
     return (
         <Link

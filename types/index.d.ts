@@ -33,8 +33,8 @@ declare type Tab = "places" | "lists" | "profile";
 declare type SearchedPlace = {
   id: number;
   name: string;
-  lat: string;
-  lon: string;
+  lat: string | number;
+  lon: string | number;
 };
 
 declare interface MapPreviewProps {
@@ -192,6 +192,16 @@ declare interface JourneyList {
   places: JourneyPlace[];
   createdAt: Date;
   updatedAt: Date;
+}
+
+declare interface ListSearchResult {
+  id: string;
+  title: string;
+  description: string;
+  userEmail?: string | null;
+  placeCount: number;
+  placesPreview: string[];
+  createdAt: string;
 }
 
 declare type JourneyListPayload = {

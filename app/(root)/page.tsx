@@ -2,7 +2,7 @@ import Cards from "@/components/Cards"
 import Header from "@/components/Header"
 import MapPreviewWrapper from "@/components/MapPreviewWrapper"
 import SearchBar from "@/components/SearchBar"
-import { travelCardsData } from "@/constants"
+import { listCardsData } from "@/constants"
 import { auth } from "@/lib/auth"
 import { headers } from "next/headers"
 
@@ -22,7 +22,7 @@ const page = async () => {
             </div>
 
             <div className="places-cards">
-                <Cards cards={travelCardsData} />
+                <Cards cards={listCardsData} />
             </div>
         </div>
     )

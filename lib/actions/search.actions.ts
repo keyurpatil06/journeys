@@ -1,5 +1,7 @@
 "use server";
 
+import { db } from "@/lib/auth";
+
 const { GEOAPIFY_API_KEY, GEOAPIFY_BASE_URL } = process.env;
 
 // TODO: Check response of APIs to see what all it returns
@@ -116,3 +118,75 @@ export const resolvePlaceCoordinates = async (name: string, location?: string): 
         return null;
     }
 };
+
+export const searchLists = async (query: string) => {
+    if (!query) {
+        return [];
+    }
+
+    try {
+        const docs = await db.collection("lists").find(
+            {
+                $or: [
+                    { title: { $regex: query, $options: "i" } },
+                    { tripDescription: { $regex: query, $options: "i" } },
+                    { "places.name": { $regex: query, $options: "i" } },
+                ],
+            },
+            {
+                projection: {
+                    title: 1,
+                    tripDescription: 1,
+                    userEmail: 1,
+                    places: 1,
+                    createdAt: 1,
+                },
+            }
+        ).limit(20).toArray();
+
+        const result = docs.map((doc: any) => ({
+            id: doc._id?.toString() ?? "",
+            title: doc.title,
+            description: doc.tripDescription,
+            userEmail: doc.userEmail ?? null,
+            placeCount: Array.isArray(doc.places) ? doc.places.length : 0,
+            placesPreview: Array.isArray(doc.places)
+                ? doc.places.slice(0, 4).map((place: any) => place.name)
+                : [],
+            createdAt: doc.createdAt ? new Date(doc.createdAt).toISOString() : new Date().toISOString(),
+        }));
+
+        return result;
+    } catch (error) {
+        console.log("Error searching lists: ", error);
+        return [];
+    }
+};
+
+export const searchUsers = async (query: string) => {
+    if (!query) {
+        return [];
+    }
+
+    try {
+        const docs = await db.collection("user").find(
+            {
+                $or: [
+                    { name: { $regex: query, $options: "i" } },
+                    { email: { $regex: query, $options: "i" } }
+                ]
+            },
+            {
+                projection: {
+                    name: 1,
+                    image: 1
+                }
+            }
+        ).limit(20).toArray();
+
+        return docs;
+    } catch (error) {
+        console.log("Error fetching user profiles");
+        return [];
+    }
+}

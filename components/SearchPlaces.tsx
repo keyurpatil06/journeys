@@ -2,10 +2,11 @@
 
 import { Input } from "@/components/ui/input";
 import { SearchTabs } from "@/constants";
-import { searchPlaces } from "@/lib/actions/search.actions";
+import { searchPlaces, searchLists } from "@/lib/actions/search.actions";
 import { Search, X } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import MapPreview from "@/components/MapPreview";
+import ListSearchResultCard from "@/components/ListSearchResultCard";
 
 const DEFAULT_LOCATION: [number, number] = [19.0760, 72.8777];
 
@@ -19,6 +20,7 @@ const SearchPlaces = ({
     const [query, setQuery] = useState("");
     const [activeTab, setActiveTab] = useState<Tab>("places");
     const [places, setPlaces] = useState<SearchedPlace[]>([]);
+    const [listResults, setListResults] = useState<ListSearchResult[]>([]);
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>(defaultLocation);
     const [selectedPlace, setSelectedPlace] = useState<SearchedPlace | null>(null);
 
@@ -37,14 +39,25 @@ const SearchPlaces = ({
 
     useEffect(() => {
         const delay = setTimeout(() => {
-            if (!query || activeTab !== "places") {
+            if (!query) {
                 setPlaces([]);
+                setListResults([]);
                 return;
             }
 
             startTransition(async () => {
-                const results = await searchPlaces(query);
-                setPlaces(results);
+                if (activeTab === "places") {
+                    const results = await searchPlaces(query);
+                    setPlaces(results);
+                    setListResults([]);
+                } else if (activeTab === "lists") {
+                    const results = await searchLists(query);
+                    setListResults(results);
+                    setPlaces([]);
+                } else {
+                    setPlaces([]);
+                    setListResults([]);
+                }
             });
         }, 400);
 
@@ -83,7 +96,13 @@ const SearchPlaces = ({
 
                         <Input
                             type="text"
-                            placeholder="Search places..."
+                            placeholder={
+                                activeTab === "places"
+                                    ? "Search places..."
+                                    : activeTab === "lists"
+                                        ? "Search saved lists..."
+                                        : "Search travelers..."
+                            }
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             className="pl-9 pr-9 py-4 w-full bg-white border-2 border-slate-400"
@@ -128,8 +147,35 @@ const SearchPlaces = ({
                         </div>
                     )}
 
+                    {activeTab === "lists" && (
+                        <div className="space-y-4">
+                            {listResults.length > 0 ? (
+                                listResults.map((result) => (
+                                    <ListSearchResultCard
+                                        key={result.id}
+                                        result={result}
+                                        onClick={() => {
+                                            setQuery(result.title);
+                                            setActiveTab("lists");
+                                        }}
+                                    />
+                                ))
+                            ) : (
+                                <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-600">
+                                    {isPending ? "Searching saved journeys..." : "No lists found yet. Try another term."}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {activeTab === "profile" && (
+                        <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-600">
+                            Profile search is coming soon. Search by traveler name or email in a future update.
+                        </div>
+                    )}
+
                     {/* Selected Place */}
-                    {selectedPlace && (
+                    {activeTab === "places" && selectedPlace && (
                         <div className="mt-4 p-4 bg-white rounded-xl border">
                             <h2 className="font-semibold text-lg">Selected Place</h2>
 
