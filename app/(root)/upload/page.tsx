@@ -104,6 +104,7 @@ const UploadTripPlan = () => {
             const result = await saveJourneyList({
                 title,
                 tripDescription,
+                coverImage: journeyPlaces[0]?.images?.[0] ?? "https://picsum.photos/seed/hills/800/600",
                 places: journeyPlaces,
             });
 

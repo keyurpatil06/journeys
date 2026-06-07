@@ -1,3 +1,4 @@
+import Header from '@/components/Header';
 import LeftSideBar from '@/components/LeftSidebar'
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
@@ -11,13 +12,22 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
 
     return (
         <main className='flex font-outfit h-screen w-full'>
-            {/* TODO */}
-            <aside className="bg-amber-400">
+            {/* Sidebar */}
+            <aside className="bg-amber-400 border-r">
                 <LeftSideBar user={user!} />
             </aside>
 
-            <div className='flex-1 overflow-y-auto'>
-                {children}
+            {/* Right section: Header + Body */}
+            <div className='flex-1 flex flex-col'>
+                {/* Header */}
+                <nav className="border-b bg-white">
+                    <Header user={user?.name!} />
+                </nav>
+
+                {/* Body */}
+                <div className='flex-1 overflow-y-auto no-scrollbar'>
+                    {children}
+                </div>
             </div>
         </main>
     )

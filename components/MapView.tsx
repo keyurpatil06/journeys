@@ -78,7 +78,7 @@ const MapView = (props: MapViewProps) => {
 
     return (
         <div
-            className={`overflow-hidden rounded-[32px] border border-border bg-slate-950 shadow-xl ${props.className ?? ""}`}
+            className={`overflow-hidden rounded-xl border border-border bg-slate-950 shadow-xl ${props.className ?? ""}`}
             style={props.height ? { height: props.height } : undefined}
         >
             <MapContainer center={center} zoom={zoom} className="h-full w-full" scrollWheelZoom={false}>

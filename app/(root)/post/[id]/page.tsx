@@ -5,7 +5,7 @@ import MapViewWrapper from "@/components/MapViewWrapper"
 import TravelJournalHero from "@/components/TravelJournalHero"
 import { getJourneyListById } from "@/lib/actions/journey.actions"
 
-const page = async ({ params }: { params: any }) => {
+const page = async ({ params }: { params: { id: string } }) => {
     const { id } = await params
     const list = await getJourneyListById(id)
 
@@ -125,17 +125,13 @@ const page = async ({ params }: { params: any }) => {
                                             </div>
 
                                             <div className="space-y-4">
-                                                <div className="rounded-[2rem] overflow-hidden border border-slate-200 bg-slate-950/5 shadow-sm">
+                                                <div className="rounded-xl overflow-hidden border border-slate-200 bg-slate-950/5 shadow-sm">
                                                     <MapViewWrapper mode="preview" position={coords} height="260px" />
-                                                </div>
-                                                <div className="rounded-[2rem] bg-slate-50 p-4 text-sm text-slate-600 shadow-sm">
-                                                    <p className="font-semibold text-slate-900">Traveler experience</p>
-                                                    <p className="mt-3 leading-7">This stop brings the destination to life with immersive notes, local flavor, and the kind of scene-setting details that turn a list into a story.</p>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="grid gap-3 border-t border-slate-200/70 p-6 lg:grid-cols-3">
+                                        <div className="grid gap-3 border-t border-slate-200 p-6 lg:grid-cols-3">
                                             {sectionImages.length > 0 ? (
                                                 sectionImages.map((src, idx) => (
                                                     <div key={idx} className="overflow-hidden rounded-[1.75rem] bg-slate-900 transition hover:scale-[1.01] duration-300">
@@ -153,7 +149,7 @@ const page = async ({ params }: { params: any }) => {
                     </div>
 
                     <aside className="space-y-6">
-                        <div className="sticky top-6 space-y-5 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-950/5">
+                        <div className="space-y-5 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-950/5">
                             <div className="flex items-center justify-between gap-3">
                                 <div>
                                     <p className="text-sm uppercase tracking-[0.35em] text-orange-500">Journey snapshot</p>
@@ -178,10 +174,7 @@ const page = async ({ params }: { params: any }) => {
                                         <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-orange-100 text-orange-600">
                                             <Building2 className="h-6 w-6" />
                                         </div>
-                                        <div>
-                                            <p className="font-semibold text-slate-900">{hotel.name}</p>
-                                            <p className="mt-1 text-sm text-slate-500">{hotel.lat.toFixed(2)}, {hotel.lon.toFixed(2)}</p>
-                                        </div>
+                                        <p className="font-semibold text-slate-900">{hotel.name}</p>
                                     </div>
                                 ))}
                             </div>
@@ -195,10 +188,7 @@ const page = async ({ params }: { params: any }) => {
                                         <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-amber-100 text-amber-600">
                                             <Coffee className="h-6 w-6" />
                                         </div>
-                                        <div>
-                                            <p className="font-semibold text-slate-900">{cafe.name}</p>
-                                            <p className="mt-1 text-sm text-slate-500">{cafe.lat.toFixed(2)}, {cafe.lon.toFixed(2)}</p>
-                                        </div>
+                                        <p className="font-semibold text-slate-900">{cafe.name}</p>
                                     </div>
                                 ))}
                             </div>

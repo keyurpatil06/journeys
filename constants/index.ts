@@ -32,7 +32,7 @@ export const listCardsData = [
     id: "1",
     title: "Bandra Day Out",
     description: "A sunny beach walk, art cafes, and a sunset dinner by the promenade.",
-    imgURL: "https://picsum.photos/seed/bandra/800/600",
+    imgURL: "https://picsum.photos/seed/random/800/600",
   },
   {
     id: "2",

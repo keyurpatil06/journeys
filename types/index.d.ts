@@ -13,10 +13,10 @@ declare interface SidebarProps {
 }
 
 declare interface CardItem {
-  id: string;
+  _id: string;
   title: string;
-  description: string;
-  imgURL: string;
+  tripDescription: string;
+  coverImage: string;
 }
 
 declare type CardsProps = CardItem[];
@@ -194,6 +194,12 @@ declare interface JourneyList {
   updatedAt: Date;
 }
 
+declare interface Profile {
+  _id: string;
+  name: string;
+  image: string;
+}
+
 declare interface ListSearchResult {
   id: string;
   title: string;
@@ -207,5 +213,6 @@ declare interface ListSearchResult {
 declare type JourneyListPayload = {
   title: string;
   tripDescription: string;
+  coverImage: string;
   places: JourneyPlace[];
 };

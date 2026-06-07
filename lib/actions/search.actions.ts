@@ -178,13 +178,20 @@ export const searchUsers = async (query: string) => {
             },
             {
                 projection: {
+                    _id: 1,
                     name: 1,
                     image: 1
                 }
             }
         ).limit(20).toArray();
 
-        return docs;
+        const result = docs.map((doc: any) => ({
+            _id: doc._id.toString(),
+            name: doc.name,
+            image: doc.image,
+        }));
+
+        return result;
     } catch (error) {
         console.log("Error fetching user profiles");
         return [];

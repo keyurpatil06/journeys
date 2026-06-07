@@ -58,3 +58,30 @@ export const getJourneyListById = async (id: string) => {
         return null;
     }
 };
+
+export const getDisplayCards = async () => {
+    // Data to show posts on home page
+
+    try {
+        const docs = await db.collection("lists").aggregate([
+            {
+                $sample: {
+                    size: 8
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    title: 1,
+                    tripDescription: 1,
+                    coverImage: 1
+                }
+            }
+        ]).toArray() as CardItem[];
+
+        return docs;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
+}

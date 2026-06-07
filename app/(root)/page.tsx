@@ -1,20 +1,13 @@
 import Cards from "@/components/Cards"
-import Header from "@/components/Header"
 import MapPreviewWrapper from "@/components/MapPreviewWrapper"
 import SearchBar from "@/components/SearchBar"
-import { listCardsData } from "@/constants"
-import { auth } from "@/lib/auth"
-import { headers } from "next/headers"
+import { getDisplayCards } from "@/lib/actions/journey.actions"
 
 const page = async () => {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    })
-    const loggedIn = session?.user.name;
+    const displayCards = await getDisplayCards();
 
     return (
         <div className="w-full min-h-screen flex flex-col p-4 bg-slate-200">
-            <Header user={loggedIn!} />
             <SearchBar />
 
             <div className="map-preview">
@@ -22,7 +15,7 @@ const page = async () => {
             </div>
 
             <div className="places-cards">
-                <Cards cards={listCardsData} />
+                <Cards cards={displayCards} />
             </div>
         </div>
     )

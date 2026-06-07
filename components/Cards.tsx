@@ -8,11 +8,11 @@ const Cards = ({ cards }: { cards: CardsProps }) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 m-4">
                 {cards.map((card) => (
                     <TravelCard
-                        key={card.id}
-                        id={card.id}
+                        key={card._id}
+                        id={card._id}
                         title={card.title}
-                        description={card.description}
-                        imgURL={card.imgURL}
+                        description={card.tripDescription}
+                        imgURL={card.coverImage}
                     />
                 ))}
             </div>

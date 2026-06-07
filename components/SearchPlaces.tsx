@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { SearchTabs } from "@/constants";
-import { searchPlaces, searchLists } from "@/lib/actions/search.actions";
+import { searchPlaces, searchLists, searchUsers } from "@/lib/actions/search.actions";
 import { Search, X } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import MapPreview from "@/components/MapPreview";
@@ -21,6 +21,7 @@ const SearchPlaces = ({
     const [activeTab, setActiveTab] = useState<Tab>("places");
     const [places, setPlaces] = useState<SearchedPlace[]>([]);
     const [listResults, setListResults] = useState<ListSearchResult[]>([]);
+    const [profiles, setProfiles] = useState<Profile[]>([])
     const [selectedPosition, setSelectedPosition] = useState<[number, number]>(defaultLocation);
     const [selectedPlace, setSelectedPlace] = useState<SearchedPlace | null>(null);
 
@@ -50,10 +51,17 @@ const SearchPlaces = ({
                     const results = await searchPlaces(query);
                     setPlaces(results);
                     setListResults([]);
+                    setProfiles([])
                 } else if (activeTab === "lists") {
                     const results = await searchLists(query);
                     setListResults(results);
                     setPlaces([]);
+                    setProfiles([])
+                } else if (activeTab === "profile") {
+                    const results = await searchUsers(query);
+                    setProfiles(results)
+                    setPlaces([]);
+                    setListResults([]);
                 } else {
                     setPlaces([]);
                     setListResults([]);
@@ -169,8 +177,16 @@ const SearchPlaces = ({
                     )}
 
                     {activeTab === "profile" && (
-                        <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-600">
-                            Profile search is coming soon. Search by traveler name or email in a future update.
+                        <div className="space-y-2 max-h-100 overflow-y-auto">
+                            {profiles.map((profile) => (
+                                <div
+                                    key={profile._id}
+                                    className="p-3 border rounded-lg cursor-pointer hover:bg-gray-50 bg-white transition"
+                                    onClick={() => { }}
+                                >
+                                    <p className="font-medium">{profile.name}</p>
+                                </div>
+                            ))}
                         </div>
                     )}
 

@@ -12,8 +12,11 @@ const Page = () => {
         setIsLoading(true)
         try {
             return await authClient.signIn.social({ provider: 'google' })
-        } finally {
+        } catch (error) {
+            console.log(error)
             setIsLoading(false)
+        } finally {
+            // setIsLoading(false)
         }
     }
 
