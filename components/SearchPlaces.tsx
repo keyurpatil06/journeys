@@ -1,23 +1,23 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
-import { SearchTabs } from "@/constants";
+import { DEFAULT_LOCATION, SearchTabs } from "@/constants";
 import { searchPlaces, searchLists, searchUsers } from "@/lib/actions/search.actions";
 import { Search, X } from "lucide-react";
 import { useEffect, useState, useTransition } from "react";
 import MapPreview from "@/components/MapPreview";
 import ListSearchResultCard from "@/components/ListSearchResultCard";
-
-const DEFAULT_LOCATION: [number, number] = [19.0760, 72.8777];
+import Link from "next/link";
 
 const SearchPlaces = ({
     defaultLocation = DEFAULT_LOCATION,
     onPlaceSelect,
+    place,
     showMap = true,
     showTabs = true,
     height = "auto",
 }: SearchPlacesProps) => {
-    const [query, setQuery] = useState("");
+    const [query, setQuery] = useState(place ?? "");
     const [activeTab, setActiveTab] = useState<Tab>("places");
     const [places, setPlaces] = useState<SearchedPlace[]>([]);
     const [listResults, setListResults] = useState<ListSearchResult[]>([]);
@@ -124,10 +124,7 @@ const SearchPlaces = ({
                                 <button
                                     key={key}
                                     onClick={() => setActiveTab(key as Tab)}
-                                    className={`px-4 py-2 rounded-xl text-sm transition ${activeTab === key
-                                        ? "bg-orange-300"
-                                        : "bg-gray-200 text-gray-600"
-                                        }`}
+                                    className={`px-4 py-2 rounded-xl text-sm transition ${activeTab === key ? "bg-orange-300" : "bg-gray-200 text-gray-600"}`}
                                 >
                                     {label}
                                 </button>
@@ -191,15 +188,25 @@ const SearchPlaces = ({
                     )}
 
                     {/* Selected Place */}
-                    {activeTab === "places" && selectedPlace && (
+                    {activeTab === "places" && selectedPlace && showTabs && (
                         <div className="mt-4 p-4 bg-white rounded-xl border">
                             <h2 className="font-semibold text-lg">Selected Place</h2>
 
                             <p className="mt-2">{selectedPlace.name}</p>
 
-                            <button className="mt-4 bg-orange-400 hover:bg-orange-500 transition text-white px-4 py-2 rounded-xl">
+                            <Link
+                                href={{
+                                    pathname: "/upload",
+                                    query: {
+                                        place: selectedPlace.name,
+                                        lat: selectedPlace.lat,
+                                        lon: selectedPlace.lon,
+                                    },
+                                }}
+                                className="mt-4 inline-block rounded-xl bg-orange-400 px-4 py-2 text-white transition hover:bg-orange-500"
+                            >
                                 Add To List
-                            </button>
+                            </Link>
                         </div>
                     )}
                 </div>

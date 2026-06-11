@@ -6,12 +6,21 @@ import JourneyPlaceCard from "@/components/JourneyPlaceCard";
 import { Input } from "@/components/ui/input";
 import { searchNearbyPlaces } from "@/lib/actions/search.actions";
 import { saveJourneyList } from "@/lib/actions/journey.actions";
+import { useSearchParams } from "next/navigation";
+import { DEFAULT_LOCATION } from "@/constants";
 
 const UploadTripPlan = () => {
     const [title, setTitle] = useState("");
     const [tripDescription, setTripDescription] = useState("");
     const [journeyPlaces, setJourneyPlaces] = useState<JourneyPlace[]>([]);
     const [isSaving, setIsSaving] = useState(false);
+
+    const searchParams = useSearchParams();
+    const place = searchParams.get("place") ?? '';
+    const lat = Number(searchParams.get("lat"));
+    const lon = Number(searchParams.get("lon"));
+
+    const searchedLocation: [number, number] = !isNaN(lat) && !isNaN(lon) ? [lat, lon] : DEFAULT_LOCATION;
 
     const handlePlaceSelect = (place: SearchedPlace) => {
         const alreadyExists = journeyPlaces.find((p) => p.id === place.id);
@@ -150,7 +159,9 @@ const UploadTripPlan = () => {
                     <div className="bg-white border rounded-2xl p-4">
                         <h2 className="font-semibold text-lg mb-4">Add Places</h2>
                         <SearchPlaces
+                            defaultLocation={searchedLocation}
                             onPlaceSelect={handlePlaceSelect}
+                            place={place}
                             showMap={true}
                             showTabs={false}
                         />

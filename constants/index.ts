@@ -27,6 +27,8 @@ export const SearchTabs = [
   { key: "profile", label: "Users" },
 ];
 
+export const DEFAULT_LOCATION: [number, number] = [19.0760, 72.8777];
+
 export const listCardsData = [
   {
     id: "1",

@@ -47,6 +47,7 @@ declare type Category = "hotel" | "cafe_restaurant";
 declare interface SearchPlacesProps {
   defaultLocation?: [number, number];
   onPlaceSelect?: (place: SearchedPlace) => void;
+  place?: string;
   showMap?: boolean;
   showTabs?: boolean;
   height?: string;
