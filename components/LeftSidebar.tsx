@@ -5,11 +5,12 @@ import { sideBarLinks } from "@/constants"
 import { authClient } from "@/lib/auth-client"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 const LeftSideBar = ({ user }: SidebarProps) => {
-    const router = useRouter()
-    const [isSigningOut, setIsSigningOut] = useState(false)
+    const router = useRouter();
+    const pathname = usePathname();
+    const [isSigningOut, setIsSigningOut] = useState(false);
 
     const handleSignOut = async () => {
         // Optimistic UI: prevent further navigation immediately
@@ -30,36 +31,78 @@ const LeftSideBar = ({ user }: SidebarProps) => {
         <section className="sidebar">
             <nav className="flex flex-col gap-4">
                 <Link
-                    href='/'
-                    className="text-3xl border-black border p-2 m-2"
+                    href="/"
+                    className="mx-4 mt-4 flex items-center gap-3 rounded-2xl px-4 py-3 transition hover:bg-slate-100"
                 >
-                    Journeys
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-700 text-white font-bold">
+                        J
+                    </div>
+
+                    <div>
+                        <h1 className="text-lg font-bold text-slate-900">
+                            Journeys
+                        </h1>
+                        <p className="text-xs text-slate-500">
+                            Explore & Share
+                        </p>
+                    </div>
                 </Link>
 
-                {sideBarLinks.map(({ imgURL, label, route }) => (
-                    isSigningOut ? (
-                        <div key={label} className="text-lg font-normal opacity-50 cursor-not-allowed">{label}</div>
-                    ) : (
-                        <Link href={route} key={label}>
-                            <span className="text-lg font-normal">{label}</span>
-                        </Link>
-                    )
-                ))}
+                <nav className="mt-8 flex flex-1 flex-col gap-2 px-4">
+                    {sideBarLinks.map(({ label, route }) => {
+                        const isActive = pathname === route || pathname.startsWith(`${route}/`)
+
+                        return (
+                            <Link
+                                key={label}
+                                href={route}
+                                className={`flex items-center gap-3 rounded-xl px-4 py-3 transition text-amber-950 ${isActive ? 'bg-amber-200':''} hover:bg-amber-100`}
+                            >
+                                <span className="font-medium">
+                                    {label}
+                                </span>
+                            </Link>
+                        )
+                    })}
+                </nav>
             </nav>
 
-            <footer>
-                <div>
-                    <h1>{user.name}</h1>
-                    <p>{user.email}</p>
-                </div>
+            <footer className="border-t border-slate-200 p-4">
+                <div className="flex items-center justify-between rounded-2xl bg-amber-200 p-3">
+                    <Link
+                        href={`/profile/${user.id}`}
+                        className="flex min-w-0 flex-1 items-center gap-3"
+                    >
+                        <Image
+                            src={user.image!}
+                            alt={user.name!}
+                            width={48}
+                            height={48}
+                            className="rounded-full border border-slate-200"
+                        />
 
-                <div>
+                        <div className="min-w-0">
+                            <p className="truncate font-semibold text-slate-900">
+                                {user.name}
+                            </p>
+
+                            <p className="truncate text-sm text-slate-500">
+                                {user.email}
+                            </p>
+                        </div>
+                    </Link>
+
                     <button
                         onClick={handleSignOut}
                         disabled={isSigningOut}
-                        className="cursor-pointer px-4 py-2 rounded-xl bg-amber-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="rounded-lg p-2 transition hover:bg-amber-700/40 disabled:opacity-50"
                     >
-                        {isSigningOut ? "Signing out..." : "Sign Out"}
+                        <Image
+                            src="/assets/icons/logout.svg"
+                            alt="logout"
+                            width={18}
+                            height={18}
+                        />
                     </button>
                 </div>
             </footer>

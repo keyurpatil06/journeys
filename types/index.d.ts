@@ -6,6 +6,8 @@ declare interface User {
   emailVerified: boolean;
   name: string;
   image?: string | null | undefined;
+  followers?: string[];
+  following?: string[];
 }
 
 declare interface SidebarProps {
@@ -199,6 +201,10 @@ declare interface Profile {
   _id: string;
   name: string;
   image: string;
+  followersCount?: number;
+  followingCount?: number;
+  followers?: string[];
+  following?: string[];
 }
 
 declare interface ListSearchResult {
@@ -217,3 +223,13 @@ declare type JourneyListPayload = {
   coverImage: string;
   places: JourneyPlace[];
 };
+
+declare type FollowConnectionsProps = {
+  profileId: string;
+  currentUserId: string;
+  followers: string[];
+  following: string[];
+  isFollowing: boolean;
+}
+
+declare type ModalType = "followers" | "following" | null;

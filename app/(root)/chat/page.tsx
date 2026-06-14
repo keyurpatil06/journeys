@@ -91,7 +91,7 @@ const AiChat = () => {
                 ])
             }
         } catch (error) {
-            console.log("Google AI travel plan failed:", error)
+            console.log("AI travel plan failed:", error)
             setItinerary(null)
             setMessages((prev) => [
                 ...prev,

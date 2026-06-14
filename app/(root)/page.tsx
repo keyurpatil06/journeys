@@ -1,6 +1,7 @@
 import Cards from "@/components/Cards"
 import MapPreviewWrapper from "@/components/MapPreviewWrapper"
 import SearchBar from "@/components/SearchBar"
+import AiPromptSearch from "@/components/AiPromptSearch"
 import { getDisplayCards } from "@/lib/actions/journey.actions"
 
 const page = async () => {
@@ -14,7 +15,11 @@ const page = async () => {
                 <MapPreviewWrapper />
             </div>
 
-            <div className="places-cards">
+            <div className="mt-6">
+                <AiPromptSearch />
+            </div>
+
+            <div className="places-cards mt-6">
                 <Cards cards={displayCards} />
             </div>
         </div>
