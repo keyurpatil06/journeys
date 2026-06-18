@@ -7,13 +7,14 @@ const TravelCard = ({ id, title, description, imgURL }: TravelCardProps) => {
     return (
         <Link
             href={`/post/${id}`}
-            className="group block overflow-hidden rounded-3xl border border-amber-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            className="group block overflow-hidden rounded-3xl border border-amber-200 bg-white shadow-sm hover:shadow-xl"
         >
             <div className="relative h-72 w-full">
                 <Image
                     src={imageSrc}
                     alt={title}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                     className="object-cover transition duration-500 group-hover:scale-105"
                 />
 

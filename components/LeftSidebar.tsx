@@ -32,7 +32,7 @@ const LeftSideBar = ({ user }: SidebarProps) => {
             <nav className="flex flex-col gap-4">
                 <Link
                     href="/"
-                    className="mx-4 mt-4 flex items-center gap-3 rounded-2xl px-4 py-3 transition hover:bg-slate-100"
+                    className="mx-4 mt-4 flex items-center gap-3 rounded-2xl px-4 py-3 transition bg-amber-300"
                 >
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-700 text-white font-bold">
                         J
@@ -49,18 +49,22 @@ const LeftSideBar = ({ user }: SidebarProps) => {
                 </Link>
 
                 <nav className="mt-8 flex flex-1 flex-col gap-2 px-4">
-                    {sideBarLinks.map(({ label, route }) => {
+                    {sideBarLinks.map(({ imgURL, label, route }) => {
                         const isActive = pathname === route || pathname.startsWith(`${route}/`)
 
                         return (
                             <Link
                                 key={label}
                                 href={route}
-                                className={`flex items-center gap-3 rounded-xl px-4 py-3 transition text-amber-950 ${isActive ? 'bg-amber-200':''} hover:bg-amber-100`}
+                                className={`flex items-center gap-3 rounded-xl px-4 py-3 transition text-amber-950 ${isActive ? 'bg-amber-300' : ''} hover:bg-amber-200`}
                             >
-                                <span className="font-medium">
-                                    {label}
-                                </span>
+                                <Image
+                                    src={imgURL}
+                                    alt={label}
+                                    width={18}
+                                    height={18}
+                                />
+                                <span className="font-medium">{label}</span>
                             </Link>
                         )
                     })}

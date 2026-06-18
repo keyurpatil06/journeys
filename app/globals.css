@@ -134,7 +134,7 @@
 
 @layer components {
   .sidebar {
-    @apply flex flex-col justify-between h-full w-72 border-r border-slate-200 bg-amber-50;
+    @apply flex flex-col justify-between h-full w-72 border-r border-slate-200 bg-amber-100;
   }
 
   .map-preview {

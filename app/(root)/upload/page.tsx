@@ -136,39 +136,89 @@ const UploadTripPlan = () => {
     };
 
     return (
-        <section className="p-4 max-w-full mx-auto">
-            <div className="grid grid-cols-1 max-w-3/5 gap-6">
-                <div className="space-y-6">
-                    {/* BASIC INFO */}
-                    <div className="bg-white border rounded-2xl p-4 space-y-4">
-                        <h1 className="text-2xl font-bold">Create Journey</h1>
+        <section className="min-h-screen bg-[#f5efe6] px-4 py-8">
+            <div className="mx-auto max-w-5xl space-y-8">
+
+                {/* HEADER */}
+                <div className="text-center">
+                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#9a8267]">
+                        Travel Journal
+                    </p>
+
+                    <h1 className="mt-3 text-4xl font-bold text-[#4a3a2a]">
+                        Create a New Journey
+                    </h1>
+
+                    <p className="mx-auto mt-4 max-w-2xl text-[#7c6853]">
+                        Capture memorable destinations, add your experiences,
+                        recommend nearby stays and restaurants, and publish your
+                        journey for fellow travelers.
+                    </p>
+                </div>
+
+                {/* BASIC INFO */}
+                <div className="rounded-4xl border border-[#e3d3c0] bg-[#fffaf1] p-6 shadow-sm">
+                    <div className="mb-5">
+                        <h2 className="text-xl font-semibold text-[#4a3a2a]">
+                            Journey Details
+                        </h2>
+
+                        <p className="mt-1 text-sm text-[#8a7660]">
+                            Give your trip a memorable title and description.
+                        </p>
+                    </div>
+
+                    <div className="space-y-4">
                         <Input
-                            placeholder="Trip title"
+                            placeholder="A Perfect Weekend in Goa"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
+                            className="px-4 py-6 rounded-xl border-[#d6c3a4] bg-white outline-none"
                         />
+
                         <textarea
-                            placeholder="Write about your trip..."
+                            placeholder="Tell travelers about your journey, highlights, recommendations, and experiences..."
                             value={tripDescription}
                             onChange={(e) => setTripDescription(e.target.value)}
-                            className="w-full min-h-32 border rounded-xl p-3 resize-none outline-none"
+                            className="min-h-40 w-full resize-none rounded-2xl border border-[#d6c3a4] bg-white p-4 outline-none transition focus:border-[#c8a979]"
                         />
                     </div>
+                </div>
 
-                    {/* SEARCH PLACES */}
-                    <div className="bg-white border rounded-2xl p-4">
-                        <h2 className="font-semibold text-lg mb-4">Add Places</h2>
-                        <SearchPlaces
-                            defaultLocation={searchedLocation}
-                            onPlaceSelect={handlePlaceSelect}
-                            place={place}
-                            showMap={true}
-                            showTabs={false}
-                        />
+                {/* ADD PLACES */}
+                <div className="rounded-4xl border border-[#e3d3c0] bg-[#fffaf1] p-6 shadow-sm h-fit">
+                    <div className="mb-5">
+                        <h2 className="text-xl font-semibold text-[#4a3a2a]">
+                            Add Places
+                        </h2>
+
+                        <p className="mt-1 text-sm text-[#8a7660]">
+                            Search destinations and add them to your journey.
+                        </p>
                     </div>
 
-                    {/* JOURNEY PLACES */}
-                    <div className="space-y-4">
+                    <SearchPlaces
+                        defaultLocation={searchedLocation}
+                        onPlaceSelect={handlePlaceSelect}
+                        place={place}
+                        showMap={true}
+                        showTabs={false}
+                    />
+                </div>
+
+                {/* JOURNEY PLACES */}
+                {journeyPlaces.length > 0 && (
+                    <div className="space-y-5">
+                        <div className="pl-4">
+                            <h2 className="text-xl font-semibold text-[#4a3a2a]">
+                                Journey Stops
+                            </h2>
+
+                            <p className="mt-1 text-sm text-[#8a7660]">
+                                Add images, notes, hotels, and restaurant recommendations.
+                            </p>
+                        </div>
+
                         {journeyPlaces.map((place) => (
                             <JourneyPlaceCard
                                 key={place.id}
@@ -182,15 +232,32 @@ const UploadTripPlan = () => {
                             />
                         ))}
                     </div>
+                )}
 
-                    {/* PUBLISH */}
-                    <button
-                        onClick={handlePublish}
-                        disabled={isSaving}
-                        className="w-full bg-black text-white py-3 rounded-2xl disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                        {isSaving ? "Saving..." : "Publish Journey"}
-                    </button>
+                {/* EMPTY STATE */}
+                {journeyPlaces.length === 0 && (
+                    <div className="rounded-4xl border border-dashed border-[#d6c3a4] bg-[#fffaf1] p-10 text-center">
+                        <h3 className="text-lg font-semibold text-[#5d4a3f]">
+                            No places added yet
+                        </h3>
+
+                        <p className="mt-2 text-sm text-[#8a7660]">
+                            Search for a destination above to start building your journey.
+                        </p>
+                    </div>
+                )}
+
+                {/* PUBLISH */}
+                <div>
+                    <div className="rounded-4xl border border-[#d6c3a4] bg-[#fffaf1]/95 p-4 shadow-xl backdrop-blur">
+                        <button
+                            onClick={handlePublish}
+                            disabled={isSaving}
+                            className="w-full rounded-2xl bg-[#4a3a2a] py-4 text-base font-semibold text-[#fffaf1] transition-all hover:bg-[#5d4a3f] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                        >
+                            {isSaving ? "Saving..." : "Publish Journey"}
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>

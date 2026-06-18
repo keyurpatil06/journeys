@@ -5,7 +5,7 @@ import ChatInput from "@/components/chat/ChatInput"
 import ChatMessage from "@/components/chat/ChatMessage"
 import ItineraryCard from "@/components/chat/ItineraryCard"
 import InteractiveMap from "@/components/chat/InteractiveMap"
-import { generateTravelPlan } from "@/lib/actions/aiChat.actions"
+import { generateTravelPlan } from "@/lib/actions/ai.actions"
 import { resolvePlaceCoordinates } from "@/lib/actions/search.actions"
 
 const AiChat = () => {

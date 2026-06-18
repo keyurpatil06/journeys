@@ -85,9 +85,40 @@ export const getUserProfileWithLists = async (userId: string) => {
             createdAt: doc.createdAt ? new Date(doc.createdAt).toISOString() : new Date().toISOString(),
         }));
 
-        // TODO: Store ids as references
-        const followers = Array.isArray(userDoc?.followers) ? userDoc.followers.map(String) : [];
-        const following = Array.isArray(userDoc?.following) ? userDoc.following.map(String) : [];
+        const followers = Array.isArray(userDoc?.followers)
+            ? await Promise.all(
+                userDoc.followers.map(async (followerId: ObjectId) => {
+                    const followerDoc = await db.collection("user").findOne(
+                        { _id: followerId },
+                        { projection: { _id: 1, name: 1, image: 1, email: 1 } }
+                    );
+
+                    return {
+                        id: followerDoc?._id?.toString() ?? String(followerId),
+                        name: followerDoc?.name ?? (followerDoc?.email ? followerDoc.email.split("@")[0] : "Traveler"),
+                        image: followerDoc?.image ?? null,
+                    };
+                })
+            )
+            : [];
+
+        const following = Array.isArray(userDoc?.following)
+            ? await Promise.all(
+                userDoc.following.map(async (followingId: ObjectId) => {
+                    const followingDoc = await db.collection("user").findOne(
+                        { _id: followingId },
+                        { projection: { _id: 1, name: 1, image: 1, email: 1 } }
+                    );
+
+                    return {
+                        id: followingDoc?._id?.toString() ?? String(followingId),
+                        name: followingDoc?.name ?? (followingDoc?.email ? followingDoc.email.split("@")[0] : "Traveler"),
+                        image: followingDoc?.image ?? null,
+                    };
+                })
+            )
+            : [];
+
         const name = userDoc?.name ?? (userDoc?.email ? userDoc.email.split("@")[0] : `Traveler`);
 
         const profile = {

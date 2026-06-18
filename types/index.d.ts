@@ -224,11 +224,17 @@ declare type JourneyListPayload = {
   places: JourneyPlace[];
 };
 
+declare type FollowConnectionsUser = {
+  id: string;
+  name: string;
+  image: string | null;
+};
+
 declare type FollowConnectionsProps = {
   profileId: string;
-  currentUserId: string;
-  followers: string[];
-  following: string[];
+  followers: FollowConnectionsUser[];
+  following: FollowConnectionsUser[];
+  isOwnProfile: boolean;
   isFollowing: boolean;
 }
 

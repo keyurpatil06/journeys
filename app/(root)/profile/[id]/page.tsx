@@ -36,8 +36,8 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                                     <Image
                                         src={profile.image}
                                         alt={profile.name}
-                                        width={130}
-                                        height={130}
+                                        width={100}
+                                        height={100}
                                         className="rounded-full"
                                     />
                                 ) : (
@@ -49,22 +49,15 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                                 <p className="mt-4 max-w-xl text-sm leading-7 text-[#6d5a44]">A travel creator sharing curated journey lists, favorite stays and memorable destinations. Browse the uploaded trips below.</p>
                             </div>
                         </div>
-
-                        <div className="flex justify-center w-auto grid-cols-2 gap-4 rounded-4xl bg-white p-4 text-center text-[#6b5a44] shadow-sm">
-                            <div className="rounded-3xl border border-[#e3d3c0] bg-[#fbf5ed] px-4 py-5">
-                                <p className="text-2xl font-semibold">{lists.length}</p>
-                                <p className="mt-1 text-xs uppercase tracking-[0.25em] text-[#9a8267]">Uploads</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
                 <FollowConnections
                     profileId={id}
-                    currentUserId={currentUserId}
                     followers={profile.followers}
                     following={profile.following}
-                    isFollowing={Boolean(profile.following?.includes(currentUserId ?? ""))}
+                    isOwnProfile={id === currentUserId}
+                    isFollowing={Boolean(profile.followers.find((follower) => follower.id === currentUserId))}
                 />
 
                 <section className="space-y-6">
@@ -73,6 +66,12 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                             <div>
                                 <h2 className="text-2xl font-semibold">Uploaded Lists</h2>
                                 <p className="mt-2 text-sm text-[#7c6853]">Browse all journeys created by {profile.name}.</p>
+                            </div>
+                            <div className="flex justify-center w-auto gap-4 rounded-4xl bg-[#fbf5ed] border border-[#e3d3c0] p-3 text-center text-[#6b5a44] shadow-sm">
+                                <div className="rounded-2xl border border-[#e3d3c0] bg-white px-4 py-2">
+                                    <p className="text-2xl font-semibold">{lists.length}</p>
+                                    <p className="mt-1 text-xs uppercase tracking-[0.25em] text-[#9a8267]">Uploads</p>
+                                </div>
                             </div>
                         </div>
                     </div>

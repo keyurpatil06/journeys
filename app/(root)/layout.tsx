@@ -13,7 +13,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
     return (
         <main className='flex font-outfit h-screen w-full'>
             {/* Sidebar */}
-            <aside className="bg-amber-400 border-r">
+            <aside className="border-r">
                 <LeftSideBar user={user!} />
             </aside>
 
