@@ -107,61 +107,88 @@ const AiChat = () => {
     }
 
     return (
-        <main className="min-h-screen bg-slate-50 px-6 py-6 lg:px-8">
+        <main className="min-h-screen bg-[#f5efe6] px-6 py-6 lg:px-8">
             <div className="mx-auto grid max-w-400 gap-6 xl:grid-cols-[0.9fr_1.1fr]">
                 <section className="space-y-6">
-                    <div className="rounded-[34px] border border-border bg-white p-6 shadow-sm">
+                    <div className="rounded-4xl border border-[#d6c3a4] bg-[#f7efe1] p-6 shadow-sm">
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                             <div>
-                                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">AI Travel Planner</p>
-                                <h1 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900">Create an itinerary with map sync.</h1>
-                                <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">Type your destination, budget or vibe and the planner builds a day-wise travel plan, recommended cafés, hotels and a live map.</p>
+                                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#9a8267]">AI Travel Planner</p>
+                                <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#4a3a2a]">Create an itinerary with map sync.</h1>
+                                <p className="mt-2 max-w-2xl text-sm leading-6 text-[#6d5a44]">
+                                    Type your destination, budget or vibe and the planner builds a day-wise travel plan, recommended cafés, hotels and a live map.
+                                </p>
                             </div>
-                            <div className="rounded-3xl bg-slate-50 p-4 text-sm text-slate-600">Tip: Try “2-day itinerary for Mumbai with nightlife”.</div>
+
+                            <div className="rounded-3xl border border-[#e3d3c0] bg-[#fffaf1] p-4 text-sm text-[#6d5a44] shadow-sm">
+                                Tip: Try “2-day itinerary for Mumbai with nightlife”.
+                            </div>
                         </div>
                     </div>
 
-                    <div className="rounded-[34px] border border-border bg-white p-6 shadow-sm">
+                    <div className="rounded-4xl border border-[#d6c3a4] bg-[#fffaf1] p-6 shadow-sm">
                         <div ref={containerRef} className="mb-6 flex max-h-130 flex-col gap-4 overflow-y-auto pr-2">
                             {messages.map((message) => (
-                                <ChatMessage key={message.id} role={message.role} message={message.content} />
+                                <ChatMessage
+                                    key={message.id}
+                                    role={message.role}
+                                    message={message.content}
+                                />
                             ))}
                         </div>
 
-                        <ChatInput value={query} onChange={setQuery} onSend={handleSend} loading={loading} />
+                        <ChatInput
+                            value={query}
+                            onChange={setQuery}
+                            onSend={handleSend}
+                            loading={loading}
+                        />
                     </div>
                 </section>
 
                 <section className="space-y-6">
-                    <div className="rounded-[34px] border border-border bg-white p-6 shadow-sm">
-                        <h2 className="text-xl font-semibold text-slate-900">Interactive map</h2>
-                        <p className="mt-2 text-sm text-slate-600">Tap any recommended place to update the route and highlight its location.</p>
+                    <div className="rounded-4xl border border-[#d6c3a4] bg-[#f7efe1] p-6 shadow-sm">
+                        <h2 className="text-xl font-semibold text-[#4a3a2a]">Interactive Map</h2>
+
+                        <p className="mt-2 text-sm text-[#6d5a44]">
+                            Tap any recommended place to update the route and highlight its location.
+                        </p>
                     </div>
 
-                    <InteractiveMap
-                        places={places.length > 0 ? places : [
-                            {
-                                id: "default-1",
-                                name: "Mumbai",
-                                description: "Your trip markers appear here once you generate a plan.",
-                                category: "Preview",
-                                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-                                coords: [19.0760, 72.8777],
-                            },
-                        ]}
-                        selectedPlaceId={selectedPlaceId}
-                        onSelectPlace={setSelectedPlaceId}
-                    />
+                    <div className="rounded-4xl border border-[#d6c3a4] bg-[#fffaf1] p-3 shadow-sm">
+                        <InteractiveMap
+                            places={
+                                places.length > 0 ? places : [
+                                    {
+                                        id: "default-1",
+                                        name: "Mumbai",
+                                        description: "Your trip markers appear here once you generate a plan.",
+                                        category: "Preview",
+                                        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+                                        coords: [19.076, 72.8777],
+                                    },
+                                ]
+                            }
+                            selectedPlaceId={selectedPlaceId}
+                            onSelectPlace={setSelectedPlaceId}
+                        />
+                    </div>
                 </section>
             </div>
 
             {itinerary ? (
                 <div className="mt-6">
-                    <ItineraryCard itinerary={itinerary} selectedPlaceId={selectedPlaceId} onSelectPlace={setSelectedPlaceId} />
+                    <ItineraryCard
+                        itinerary={itinerary}
+                        selectedPlaceId={selectedPlaceId}
+                        onSelectPlace={setSelectedPlaceId}
+                    />
                 </div>
             ) : (
-                <div className="mt-6 rounded-[34px] border border-border bg-white p-8 shadow-sm">
-                    <p className="text-base text-slate-600">Enter a travel prompt to see a structured day plan, recommended places and map markers.</p>
+                <div className="mt-6 rounded-4xl border border-[#d6c3a4] bg-[#fffaf1] p-8 text-center shadow-sm">
+                    <p className="text-base text-[#6d5a44]">
+                        Enter a travel prompt to see a structured day plan, recommended places and map markers.
+                    </p>
                 </div>
             )}
         </main>

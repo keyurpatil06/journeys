@@ -28,8 +28,9 @@ export const searchPlaces = async (query: string) => {
         );
     } catch (error) {
         console.log("Error fetching places: ", error);
-        return [];
     }
+
+    return [];
 };
 
 export const searchNearbyPlaces = async (
@@ -72,8 +73,9 @@ export const searchNearbyPlaces = async (
         );
     } catch (error) {
         console.log("Error fetching nearby places: ", error);
-        return [];
     }
+
+    return [];
 };
 
 export const resolvePlaceCoordinates = async (name: string, location?: string): Promise<[number, number] | null> => {
@@ -115,8 +117,9 @@ export const resolvePlaceCoordinates = async (name: string, location?: string): 
         return null;
     } catch (error) {
         console.log(error);
-        return null;
     }
+
+    return null;
 };
 
 export const searchLists = async (query: string) => {
@@ -159,8 +162,9 @@ export const searchLists = async (query: string) => {
         return result;
     } catch (error) {
         console.log("Error searching lists: ", error);
-        return [];
     }
+
+    return [];
 };
 
 export const searchUsers = async (query: string) => {
@@ -194,6 +198,7 @@ export const searchUsers = async (query: string) => {
         return result;
     } catch (error) {
         console.log("Error fetching user profiles");
-        return [];
     }
+
+    return [];
 }

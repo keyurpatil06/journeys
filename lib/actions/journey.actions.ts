@@ -29,12 +29,12 @@ export const saveJourneyList = async (payload: JourneyListPayload) => {
         };
     } catch (error) {
         console.log(error);
-
-        return {
-            success: false,
-            id: null,
-        };
     }
+
+    return {
+        success: false,
+        id: null,
+    };
 };
 
 export const getJourneyListById = async (id: string) => {
@@ -56,8 +56,9 @@ export const getJourneyListById = async (id: string) => {
         } as JourneyList;
     } catch (error) {
         console.log("Error fetching journey list by id", error);
-        return null;
     }
+
+    return null;
 };
 
 export const getUserProfileWithLists = async (userId: string) => {
@@ -136,8 +137,9 @@ export const getUserProfileWithLists = async (userId: string) => {
         };
     } catch (error) {
         console.log("Error fetching user profile and lists", error);
-        return null;
     }
+
+    return null;
 };
 
 export const getDisplayCards = async () => {
@@ -163,6 +165,7 @@ export const getDisplayCards = async () => {
         return docs;
     } catch (error) {
         console.log(error);
-        return [];
     }
+
+    return [];
 }

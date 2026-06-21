@@ -43,8 +43,9 @@ export const followUser = async (profileId: string) => {
         return { success: true }
     } catch (error) {
         console.log('Error while performing follow action', error)
-        return { success: false }
     }
+
+    return { success: false }
 }
 
 export const unfollowUser = async (profileId: string) => {
@@ -80,6 +81,7 @@ export const unfollowUser = async (profileId: string) => {
         return { success: true }
     } catch (error) {
         console.log('Error while performing follow action', error)
-        return { success: false }
     }
+
+    return { success: false }
 }

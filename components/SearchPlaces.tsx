@@ -124,7 +124,7 @@ const SearchPlaces = ({
                             }
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            className="px-9 py-4 w-full bg-white border-2 border-slate-400 rounded-lg"
+                            className="px-9 py-5 w-full rounded-xl transition border-[#d6c3a4] bg-amber-50 focus-visible:border-[#c8a979] focus-visible:ring-0"
                         />
                     </div>
 
@@ -135,7 +135,7 @@ const SearchPlaces = ({
                                 <button
                                     key={key}
                                     onClick={() => setActiveTab(key as Tab)}
-                                    className={`px-4 py-2 rounded-xl text-sm transition ${activeTab === key ? "bg-orange-300 font-semibold" : "bg-gray-200 text-gray-600 font-normal"}`}
+                                    className={`px-4 py-2 rounded-xl text-sm transition ${activeTab === key ? "bg-orange-400 font-semibold" : "bg-orange-200 font-normal"}`}
                                 >
                                     {label}
                                 </button>

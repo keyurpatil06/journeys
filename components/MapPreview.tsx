@@ -2,7 +2,7 @@
 
 import MapView from "@/components/MapViewWrapper"
 
-const MapPreview = ({ position, height = "500px" }: MapPreviewProps) => {
+const MapPreview = ({ position, height = "400px" }: MapPreviewProps) => {
     return <MapView mode="preview" position={position} height={height} />
 }
 

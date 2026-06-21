@@ -7,7 +7,7 @@ const MapPreview = dynamic(() => import('@/components/MapPreview'), {
     ssr: false,
 })
 
-const MapPreviewWrapper = () => {
+const MapPreviewWrapper = ({ height }: { height?: string }) => {
     const router = useRouter();
 
     return (
@@ -15,7 +15,7 @@ const MapPreviewWrapper = () => {
             onFocus={() => { router.push('/search') }}
             className="cursor-pointer"
         >
-            <MapPreview />
+            <MapPreview height={height} />
         </div>
     )
 }

@@ -82,57 +82,57 @@ export const listCardsData = [
 
 export const categoryImages: Record<string, string[]> = {
   Beach: [
-    "assets/images/beach-1.jpg",
-    "assets/images/beach-2.jpg",
-    "assets/images/beach-3.jpg",
-    "assets/images/beach-4.jpg"
+    "/assets/images/beach-1.jpg",
+    "/assets/images/beach-2.jpg",
+    "/assets/images/beach-3.jpg",
+    "/assets/images/beach-4.jpg"
   ],
   Cafe: [
-    "assets/images/cafe-1.jpg",
-    "assets/images/cafe-2.jpg",
-    "assets/images/cafe-3.jpg",
-    "assets/images/cafe-4.jpg"
+    "/assets/images/cafe-1.jpg",
+    "/assets/images/cafe-2.jpg",
+    "/assets/images/cafe-3.jpg",
+    "/assets/images/cafe-4.jpg"
   ],
   Restaurant: [
-    "assets/images/restaurant-1.jpg",
-    "assets/images/restaurant-2.jpg",
-    "assets/images/restaurant-3.jpg",
-    "assets/images/restaurant-4.jpg"
+    "/assets/images/restaurant-1.jpg",
+    "/assets/images/restaurant-2.jpg",
+    "/assets/images/restaurant-3.jpg",
+    "/assets/images/restaurant-4.jpg"
   ],
   Hotel: [
-    "assets/images/hotel-1.jpg",
-    "assets/images/hotel-2.jpg",
-    "assets/images/hotel-3.jpg",
-    "assets/images/hotel-4.jpg"
+    "/assets/images/hotel-1.jpg",
+    "/assets/images/hotel-2.jpg",
+    "/assets/images/hotel-3.jpg",
+    "/assets/images/hotel-4.jpg"
   ],
   Attraction: [
-    "assets/images/attraction-1.jpg",
-    "assets/images/attraction-2.jpg",
-    "assets/images/attraction-3.jpg",
-    "assets/images/attraction-4.jpg"
+    "/assets/images/attraction-1.jpg",
+    "/assets/images/attraction-2.jpg",
+    "/assets/images/attraction-3.jpg",
+    "/assets/images/attraction-4.jpg"
   ],
   Museum: [
-    "assets/images/museum-1.jpg",
-    "assets/images/museum-2.jpg",
-    "assets/images/museum-3.jpg",
-    "assets/images/museum-4.jpg"
+    "/assets/images/museum-1.jpg",
+    "/assets/images/museum-2.jpg",
+    "/assets/images/museum-3.jpg",
+    "/assets/images/museum-4.jpg"
   ],
   Park: [
-    "assets/images/park-1.jpg",
-    "assets/images/park-2.jpg",
-    "assets/images/park-3.jpg",
-    "assets/images/park-4.jpg"
+    "/assets/images/park-1.jpg",
+    "/assets/images/park-2.jpg",
+    "/assets/images/park-3.jpg",
+    "/assets/images/park-4.jpg"
   ],
   Bar: [
-    "assets/images/bar-1.jpg",
-    "assets/images/bar-2.jpg",
-    "assets/images/bar-3.jpg",
-    "assets/images/bar-4.jpg"
+    "/assets/images/bar-1.jpg",
+    "/assets/images/bar-2.jpg",
+    "/assets/images/bar-3.jpg",
+    "/assets/images/bar-4.jpg"
   ],
   Default: [
-    "assets/images/travel-1.jpg",
-    "assets/images/travel-2.jpg",
-    "assets/images/travel-3.jpg"
+    "/assets/images/travel-1.jpg",
+    "/assets/images/travel-2.jpg",
+    "/assets/images/travel-3.jpg"
   ],
 };
 
@@ -161,14 +161,34 @@ Return only valid JSON with this exact structure:
       "name": string,
       "description": string,
       "category": "Beach" | "Cafe" | "Restaurant" | "Hotel" | "Attraction" | "Museum" | "Park" | "Bar",
-      "image": string,
       "coords": [number, number]
     }
   ],
   "nearby": {
-    "cafes": [],
-    "restaurants": [],
-    "hotels": []
+    "cafes": [
+      {
+        "id": string,
+        "name": string,
+        "description": string,
+        "category": string
+      }
+    ],
+    "restaurants": [
+      {
+        "id": string,
+        "name": string,
+        "description": string,
+        "category": string
+      }
+    ],
+    "hotels": [
+      {
+        "id": string,
+        "name": string,
+        "description": string,
+        "category": string
+      }
+    ]
   }
 }
 
@@ -183,3 +203,177 @@ Category normalization rules:
 - Pubs, clubs, lounges and nightlife venues - Bar
 
 Do not include markdown fences, extra commentary, or any response outside the JSON payload. If the user prompt is missing destination or budget details, make reasonable travel planning assumptions.`;
+
+export const SAMPLE_AI_RESPONSE = {
+  "title": "A Day of Heritage and Flavors in Pune",
+  "location": "Pune, Maharashtra, India",
+  "duration": "1 Day",
+  "budget": "Moderate (INR 2000-4000)",
+  "overview": "Discover the historical grandeur, spiritual serenity, and vibrant culinary scene of Pune in a single, well-paced day. This itinerary focuses on iconic landmarks and local experiences, offering a glimpse into the city's rich past and lively present.",
+  "days": [
+    {
+      "day": "Day 1: History, Spirituality & Local Bites",
+      "summary": "Start your day with an iconic Pune breakfast, delve into historical forts and palaces, seek blessings at a famous temple, explore a unique museum, and conclude with a delightful dinner.",
+      "activities": [
+        {
+          "time": "8:30 AM",
+          "title": "Breakfast at Vohuman Cafe",
+          "location": "Near Ruby Hall Clinic, Dhole Patil Road"
+        },
+        {
+          "time": "9:30 AM",
+          "title": "Explore Shaniwar Wada",
+          "location": "Shaniwar Peth"
+        },
+        {
+          "time": "11:30 AM",
+          "title": "Visit Aga Khan Palace",
+          "location": "Nagar Road, Kalyani Nagar"
+        },
+        {
+          "time": "1:30 PM",
+          "title": "Lunch at Vaishali",
+          "location": "Fergusson College Road"
+        },
+        {
+          "time": "3:00 PM",
+          "title": "Seek Blessings at Dagadusheth Halwai Ganapati Temple",
+          "location": "Ganpati Bhavan, Budhwar Peth"
+        },
+        {
+          "time": "4:30 PM",
+          "title": "Discover Raja Dinkar Kelkar Museum",
+          "location": "Bajirao Road, Shukrawar Peth"
+        },
+        {
+          "time": "7:00 PM",
+          "title": "Dinner at Malaka Spice",
+          "location": "Koregaon Park"
+        }
+      ],
+      "travelTips": "Wear comfortable walking shoes as you'll be exploring historical sites. Stay hydrated throughout the day, especially if visiting during warmer months. Auto-rickshaws and ride-sharing apps are convenient for getting around Pune."
+    }
+  ],
+  "recommendedPlaces": [
+    {
+      "id": "PUN001",
+      "name": "Shaniwar Wada",
+      "description": "A magnificent historical fort palace in Pune, built in 1732, it was the seat of the Peshwa rulers of the Maratha Empire. Known for its grand architecture and tragic history.",
+      "category": "Attraction",
+      "coords": [
+        18.5195,
+        73.8567
+      ]
+    },
+    {
+      "id": "PUN002",
+      "name": "Aga Khan Palace",
+      "description": "A historic monument of national importance, known for its architectural excellence and its close association with the Indian freedom movement, where Mahatma Gandhi was imprisoned.",
+      "category": "Attraction",
+      "coords": [
+        18.5539,
+        73.9038
+      ]
+    },
+    {
+      "id": "PUN003",
+      "name": "Dagadusheth Halwai Ganapati Temple",
+      "description": "One of the most famous Hindu temples in Maharashtra dedicated to Lord Ganesha. It's renowned for its grand idol and elaborate annual Ganesh festival celebrations.",
+      "category": "Attraction",
+      "coords": [
+        18.523,
+        73.8569
+      ]
+    },
+    {
+      "id": "PUN004",
+      "name": "Raja Dinkar Kelkar Museum",
+      "description": "A unique museum housing a collection of over 20,000 artifacts from Dr. Dinkar Kelkar's personal collection, showcasing ancient Indian artifacts, including musical instruments, pottery, and sculptures.",
+      "category": "Museum",
+      "coords": [
+        18.5186,
+        73.8517
+      ]
+    },
+    {
+      "id": "PUN005",
+      "name": "Vohuman Cafe",
+      "description": "An iconic Parsi cafe famous for its bun maska, Irani chai, and cheese omelets. A beloved local spot for breakfast.",
+      "category": "Cafe",
+      "coords": [
+        18.5303,
+        73.8741
+      ]
+    },
+    {
+      "id": "PUN006",
+      "name": "Vaishali",
+      "description": "A legendary South Indian restaurant on Fergusson College Road, famous for its dosas, uttappams, and filter coffee. A perpetually busy and cherished eatery.",
+      "category": "Restaurant",
+      "coords": [
+        18.5152,
+        73.8398
+      ]
+    },
+    {
+      "id": "PUN007",
+      "name": "Malaka Spice",
+      "description": "A popular restaurant in Koregaon Park known for its delicious Southeast Asian cuisine and vibrant ambiance. Great for a pleasant dinner experience.",
+      "category": "Restaurant",
+      "coords": [
+        18.5529,
+        73.8837
+      ]
+    }
+  ],
+  "nearby": {
+    "cafes": [
+      {
+        "id": "PUNC001",
+        "name": "Cafe Goodluck",
+        "description": "Another iconic cafe in Pune, famous for its Bun Maska and Chicken Special.",
+        "category": "Cafe"
+      },
+      {
+        "id": "PUNC002",
+        "name": "German Bakery",
+        "description": "A renowned bakery and cafe, popular for its desserts, cakes, and relaxed atmosphere.",
+        "category": "Cafe"
+      }
+    ],
+    "restaurants": [
+      {
+        "id": "PUNR001",
+        "name": "Shabree",
+        "description": "Known for its authentic Maharashtrian Thali, offering a taste of local cuisine.",
+        "category": "Restaurant"
+      },
+      {
+        "id": "PUNR002",
+        "name": "Durvankur Thali",
+        "description": "Another excellent spot for traditional Maharashtrian vegetarian Thali.",
+        "category": "Restaurant"
+      }
+    ],
+    "hotels": [
+      {
+        "id": "PUNH001",
+        "name": "JW Marriott Pune",
+        "description": "A luxury 5-star hotel offering elegant rooms, fine dining, and excellent amenities.",
+        "category": "Hotel"
+      },
+      {
+        "id": "PUNH002",
+        "name": "The O Hotel",
+        "description": "A boutique luxury hotel known for its stylish design, comfortable rooms, and vibrant nightlife options.",
+        "category": "Hotel"
+      },
+      {
+        "id": "PUNH003",
+        "name": "Hotel Shivam",
+        "description": "A budget-friendly hotel offering comfortable accommodation and good service, close to major attractions.",
+        "category": "Hotel"
+      }
+    ]
+  }
+}

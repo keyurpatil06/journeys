@@ -8,7 +8,7 @@ const page = async () => {
     const displayCards = await getDisplayCards();
 
     return (
-        <div className="w-full min-h-screen flex flex-col p-4 bg-slate-200">
+        <div className="w-full min-h-screen flex flex-col p-4">
             <SearchBar />
 
             <div className="map-preview">

@@ -20,7 +20,7 @@ const UploadTripPlan = () => {
     const lat = Number(searchParams.get("lat"));
     const lon = Number(searchParams.get("lon"));
 
-    const searchedLocation: [number, number] = !isNaN(lat) && !isNaN(lon) ? [lat, lon] : DEFAULT_LOCATION;
+    const searchedLocation: [number, number] = (lat !== 0 && lon !== 0) ? [lat, lon] : DEFAULT_LOCATION;
 
     const handlePlaceSelect = (place: SearchedPlace) => {
         const alreadyExists = journeyPlaces.find((p) => p.id === place.id);
@@ -173,14 +173,14 @@ const UploadTripPlan = () => {
                             placeholder="A Perfect Weekend in Goa"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            className="px-4 py-6 rounded-xl border-[#d6c3a4] bg-white outline-none"
+                            className="px-4 py-6 rounded-xl transition border-[#d6c3a4] bg-amber-50 focus-visible:border-[#c8a979] focus-visible:ring-0"
                         />
 
                         <textarea
                             placeholder="Tell travelers about your journey, highlights, recommendations, and experiences..."
                             value={tripDescription}
                             onChange={(e) => setTripDescription(e.target.value)}
-                            className="min-h-40 w-full resize-none rounded-2xl border border-[#d6c3a4] bg-white p-4 outline-none transition focus:border-[#c8a979]"
+                            className="min-h-40 w-full resize-none rounded-2xl border border-[#d6c3a4] bg-amber-50 p-4 outline-none transition focus:border-[#c8a979]"
                         />
                     </div>
                 </div>
@@ -253,7 +253,7 @@ const UploadTripPlan = () => {
                         <button
                             onClick={handlePublish}
                             disabled={isSaving}
-                            className="w-full rounded-2xl bg-[#4a3a2a] py-4 text-base font-semibold text-[#fffaf1] transition-all hover:bg-[#5d4a3f] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+                            className="w-full rounded-2xl bg-[#4a3a2a] py-4 text-base font-semibold cursor-pointer text-[#fffaf1] transition-all hover:bg-[#503d32] hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
                         >
                             {isSaving ? "Saving..." : "Publish Journey"}
                         </button>

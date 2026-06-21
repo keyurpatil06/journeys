@@ -1,20 +1,21 @@
-"use client"
+"use client";
 
 const ChatMessage = ({ role, message }: ChatMessageProps) => {
-    const bubbleClass = role === "user"
-        ? "self-end bg-slate-900 text-white"
-        : "self-start bg-white text-slate-900 border border-border"
+    const isUser = role === "user";
 
     return (
-        <div className={`flex max-w-[90%] ${bubbleClass} rounded-3xl px-5 py-4 shadow-sm`}>
-            <div className="space-y-2 text-sm leading-6">
-                <div className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
-                    {role === "user" ? "You" : "Travel AI"}
+        <div className={`flex max-w-[80%] ${isUser ? "self-end" : "self-start"}`}>
+            <div className={`rounded-2xl px-5 py-4 shadow-sm ${isUser ? "bg-[#4a3a2a] text-[#fffaf1]" : "border border-[#d6c3a4] bg-[#fffaf1] text-[#4a3a2a]"}`}>
+                <div className="space-y-2">
+                    <div className={`text-[11px] font-semibold uppercase tracking-[0.25em] ${isUser ? "text-[#d9c7af]" : "text-[#9a8267]"}`}>
+                        {isUser ? "You" : "Travel AI"}
+                    </div>
+
+                    <div className="text-sm whitespace-pre-wrap tracking-wide">{message}</div>
                 </div>
-                <div>{message}</div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ChatMessage
+export default ChatMessage;

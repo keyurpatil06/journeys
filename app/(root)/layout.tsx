@@ -18,7 +18,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
             </aside>
 
             {/* Right section: Header + Body */}
-            <div className='flex-1 flex flex-col'>
+            <div className='flex-1 flex flex-col bg-[#f5efe6]'>
                 {/* Header */}
                 <nav className="border-b bg-white">
                     <Header user={user!} />
