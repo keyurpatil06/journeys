@@ -31,7 +31,7 @@ const ChatInput = ({ value, onChange, onSend, loading }: ChatInputProps) => {
 
             <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <p className="max-w-xl text-xs leading-5 text-[#8a7660]">
-                    Try prompts like: Goa under ₹15k, 3-day Mumbai itinerary, Bali honeymoon trip, Kerala backwaters, food tour in Delhi, or a weekend getaway near Pune.
+                    Try prompts like: Goa under ₹15k, 3-day Mumbai itinerary, Kerala backwaters, food tour in Delhi, or a weekend getaway near Pune.
                 </p>
 
                 <Button

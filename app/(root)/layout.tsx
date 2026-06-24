@@ -13,14 +13,14 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
     return (
         <main className='flex font-outfit h-screen w-full'>
             {/* Sidebar */}
-            <aside className="border-r">
+            <aside className="border-r-2 border-amber-400">
                 <LeftSideBar user={user!} />
             </aside>
 
             {/* Right section: Header + Body */}
             <div className='flex-1 flex flex-col bg-[#f5efe6]'>
                 {/* Header */}
-                <nav className="border-b bg-white">
+                <nav className="p-3">
                     <Header user={user!} />
                 </nav>
 

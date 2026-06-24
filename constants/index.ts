@@ -29,6 +29,15 @@ export const SearchTabs = [
 
 export const DEFAULT_LOCATION: [number, number] = [19.0760, 72.8777];
 
+export const SAMPLE_PROMPTS = [
+  "2-day itinerary for Mumbai with nightlife",
+  "Goa trip under ₹20k",
+  "Weekend getaway near Pune",
+  "VArkala itinerary",
+  "Food tour in Mulund",
+  "Kerala backwaters for 4 days",
+];
+
 export const listCardsData = [
   {
     id: "1",

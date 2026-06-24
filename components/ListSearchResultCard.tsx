@@ -12,7 +12,7 @@ const ListSearchResultCard = ({
         <Link
             href={`/post/${result.id}`}
             onClick={onClick}
-            className="block w-full text-left bg-white border border-slate-200 rounded-3xl p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+            className="block w-full text-left bg-[#fffefb] border border-slate-200 rounded-3xl p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
         >
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="space-y-3">

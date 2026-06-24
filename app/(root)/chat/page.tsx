@@ -7,6 +7,7 @@ import ItineraryCard from "@/components/chat/ItineraryCard"
 import InteractiveMap from "@/components/chat/InteractiveMap"
 import { generateTravelPlan } from "@/lib/actions/ai.actions"
 import { resolvePlaceCoordinates } from "@/lib/actions/search.actions"
+import { useSearchParams } from "next/navigation"
 
 const AiChat = () => {
     const [query, setQuery] = useState("")
@@ -20,9 +21,12 @@ const AiChat = () => {
     const [itinerary, setItinerary] = useState<TravelItinerary | null>(null)
     const [selectedPlaceId, setSelectedPlaceId] = useState<string | undefined>(undefined)
     const [loading, setLoading] = useState(false)
-    const containerRef = useRef<HTMLDivElement | null>(null)
 
+    const containerRef = useRef<HTMLDivElement | null>(null)
     const places = useMemo(() => itinerary?.recommendedPlaces ?? [], [itinerary])
+
+    const searchParams = useSearchParams();
+    const searchedQuery = searchParams.get('q');
 
     useEffect(() => {
         if (!containerRef.current) return
@@ -138,7 +142,7 @@ const AiChat = () => {
                         </div>
 
                         <ChatInput
-                            value={query}
+                            value={searchedQuery ?? query}
                             onChange={setQuery}
                             onSend={handleSend}
                             loading={loading}

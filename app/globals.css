@@ -138,7 +138,7 @@
   }
 
   .map-preview {
-    @apply text-2xl font-outfit h-fit p-2 my-4 bg-[#f8dfb1] rounded-2xl;
+    @apply text-2xl font-outfit h-fit p-3 my-4 bg-[#f8dfb1] rounded-3xl;
   }
 
   .sign-in {
