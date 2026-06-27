@@ -30,7 +30,7 @@ const Profile = async ({ params }: { params: { id: string } }) => {
             <div className="max-w-6xl mx-auto space-y-8">
                 <div className="rounded-[32px] border border-[#d6c3a4] bg-[#f7efe1] p-8 shadow-sm">
                     <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-                        <div className="flex items-center gap-5">
+                        <div className="flex items-center gap-5 max-md:flex-col">
                             <div className="flex">
                                 {profile.image ? (
                                     <Image
@@ -94,7 +94,7 @@ const Profile = async ({ params }: { params: { id: string } }) => {
                                             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-[#9a8267]">List</p>
                                             <h3 className="mt-3 text-xl font-semibold text-[#4a3a2a]">{list.title}</h3>
                                         </div>
-                                        <div className="rounded-2xl bg-[#e1d1b7] px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#5d4a3f]">{list.placeCount} places</div>
+                                        <div className="rounded-2xl bg-[#e1d1b7] px-3 py-2 text-xs font-semibold uppercase whitespace-nowrap tracking-[0.2em] text-[#5d4a3f]">{list.placeCount} places</div>
                                     </div>
                                     <div className="mt-4 overflow-hidden rounded-2xl">
                                         <Image

@@ -189,6 +189,7 @@ declare interface PlaceCardProps {
 declare interface JourneyList {
   _id?: string;
   userId?: string | null;
+  userName?: string | null,
   userEmail?: string | null;
   title: string;
   tripDescription: string;
@@ -223,6 +224,17 @@ declare type JourneyListPayload = {
   coverImage: string;
   places: JourneyPlace[];
 };
+
+declare type TravelJournalHeroProps = {
+  images: string[];
+  title: string;
+  location: string;
+  description: string;
+  author: string;
+  createdAt: string;
+  placeCount: number;
+  photoCount: number;
+}
 
 declare type FollowConnectionsUser = {
   id: string;

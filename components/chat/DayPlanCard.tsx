@@ -14,11 +14,11 @@ const DayPlanCard = ({ day, summary, activities, travelTips }: DayPlanCardProps)
                 </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="flex gap-4 flex-wrap">
                 {activities.map((activity, index) => (
                     <div
                         key={index}
-                        className="rounded-3xl border border-[#eadcc7] bg-[#f7efe1] p-4 transition-all hover:bg-[#f3e5d0]"
+                        className="rounded-3xl border border-[#eadcc7] bg-[#f7efe1] p-4 transition-all hover:bg-[#f3e5d0] w-fit"
                     >
                         <div className="flex items-center justify-between gap-4 text-sm">
                             <span className="font-semibold text-[#4a3a2a]">{activity.title}</span>

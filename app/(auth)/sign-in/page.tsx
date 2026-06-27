@@ -25,13 +25,13 @@ const Page = () => {
             <aside className="testimonial">
                 <Link href='/'>
                     <Image
-                        src='/assets/images/logo.png'
+                        src='/assets/icons/logo.svg'
                         alt='logo'
                         width={32}
                         height={32}
-                        className="size-10"
+                        className="size-14 rounded-full"
                     />
-                    <h1>Journeys</h1>
+                    <h1>{process.env.NEXT_PUBLIC_APP_NAME}</h1>
                 </Link>
 
                 <div className="description">
@@ -48,7 +48,7 @@ const Page = () => {
                                 />
                             ))}
                         </figure>
-                        <p>Journeys makes travel planning fast, smooth and sharable in seconds!</p>
+                        <p>{process.env.NEXT_PUBLIC_APP_NAME} makes travel planning fast, smooth and sharable in seconds!</p>
                         <article>
                             <Image
                                 src='/assets/images/jason.png'
@@ -58,27 +58,27 @@ const Page = () => {
                                 className="rounded-full size-14"
                             />
                             <div>
-                                <h2>Jason Rivera</h2>
-                                <p>Product Designer, SkyLink</p>
+                                <h2>{process.env.NEXT_PUBLIC_TESTIMONIAL_NAME}</h2>
+                                <p>{process.env.NEXT_PUBLIC_TESTIMONIAL_JOB}</p>
                             </div>
                         </article>
                     </section>
                 </div>
 
-                <p>&copy; Journeys {(new Date()).getFullYear()}</p>
+                <p>&copy; {process.env.NEXT_PUBLIC_APP_NAME} {(new Date()).getFullYear()}</p>
             </aside>
 
             <aside className="google-sign-in">
                 <section>
                     <Link href='/'>
                         <Image
-                            src='/assets/images/logo.png'
+                            src='/assets/icons/logo.svg'
                             alt='logo'
                             width={40}
                             height={40}
-                            className="size-10"
+                            className="size-12 rounded-full"
                         />
-                        <h1>Journeys</h1>
+                        <h1>{process.env.NEXT_PUBLIC_APP_NAME}</h1>
                     </Link>
                     <p>Create and share your very first <span>Journey</span> in no time!</p>
                     <button onClick={handleSignIn} disabled={isLoading}>

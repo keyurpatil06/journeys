@@ -145,7 +145,7 @@ const SearchPlaces = ({
 
                     {/* Suggestions */}
                     {activeTab === "places" && (
-                        <div className="mt-4 rounded-4xl border border-[#e3d3c0] bg-[#fcf7ef] p-2 shadow-sm">
+                        <div className="active-tab">
                             <div className="max-h-100 overflow-y-auto no-scrollbar space-y-3">
                                 {places.length > 0 ? (
                                     places.map((place) => (
@@ -172,7 +172,7 @@ const SearchPlaces = ({
                                         </button>
                                     ))
                                 ) : (
-                                    <div className="rounded-3xl border border-dashed border-[#d5c4a7] bg-[#fffaf3] p-8 text-center text-[#816d59]">
+                                    <div className="active-tab-msg">
                                         {isPending ? "Searching places..." : emptyStateMessage}
                                     </div>
                                 )}
@@ -181,7 +181,7 @@ const SearchPlaces = ({
                     )}
 
                     {activeTab === "lists" && (
-                        <div className="mt-4 rounded-4xl border border-[#e3d3c0] bg-[#fcf7ef] p-3 shadow-sm">
+                        <div className="active-tab">
                             <div className="space-y-4">
                                 {listResults.length > 0 ? (
                                     listResults.map((result) => (
@@ -195,8 +195,8 @@ const SearchPlaces = ({
                                         />
                                     ))
                                 ) : (
-                                    <div className="rounded-3xl border border-dashed border-[#d5c4a7] bg-[#fffaf3] p-8 text-center text-[#816d59]">
-                                        {isPending ? "Searching saved journeys..." : emptyStateMessage}
+                                    <div className="active-tab-msg">
+                                        {isPending ? "Searching saved lists..." : emptyStateMessage}
                                     </div>
                                 )}
                             </div>
@@ -204,7 +204,7 @@ const SearchPlaces = ({
                     )}
 
                     {activeTab === "profile" && (
-                        <div className="mt-4 rounded-4xl border border-[#e3d3c0] bg-[#fcf7ef] p-2 shadow-sm">
+                        <div className="active-tab">
                             <div className="space-y-3 max-h-100 overflow-y-auto pr-1">
                                 {profiles.length > 0 ? (
                                     profiles.map((profile) => (
@@ -233,7 +233,7 @@ const SearchPlaces = ({
                                         </Link>
                                     ))
                                 ) : (
-                                    <div className="rounded-3xl border border-dashed border-[#d5c4a7] bg-[#fffaf3] p-8 text-center text-[#816d59]">
+                                    <div className="active-tab-msg">
                                         {isPending ? "Searching travelers..." : emptyStateMessage}
                                     </div>
                                 )}
@@ -266,7 +266,7 @@ const SearchPlaces = ({
                 </div>
 
                 {/* RIGHT SIDE - MAP */}
-                <div className="rounded-4xl border border-[#d6c3a4] bg-[#fffaf1] p-3 h-fit">
+                <div className="rounded-4xl border border-[#d6c3a4] bg-[#fffaf1] p-3 h-fit z-0">
                     {showMap && <MapPreview position={selectedPosition} />}
                 </div>
             </div>

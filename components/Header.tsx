@@ -1,23 +1,30 @@
+import Image from "next/image";
+import Notifications from "@/components/Notifications";
+
 const Header = ({ user }: { user: User }) => {
     return (
-        <div className="flex items-center justify-between rounded-3xl border border-[#d6c3a4] bg-[#fff2dc] px-6 py-4 shadow-sm">
-            <div>
-                <h1 className="text-2xl font-semibold text-[#4a3a2a]">
-                    Welcome, {user.name}
-                </h1>
+        <header className="flex items-center justify-between rounded-3xl border border-[#d6c3a4] bg-[#fffaf1] px-5 py-3 shadow-sm">
+            <div className="flex items-center gap-3">
+                <Image
+                    src='/assets/icons/logo.svg'
+                    alt='logo'
+                    width={35}
+                    height={35}
+                    className='rounded-xl'
+                />
 
-                <p className="mt-1 text-sm text-[#6d5a44]">
-                    Discover, save and share your favorite journeys.
-                </p>
+                <div className="">
+                    <h1 className="text-lg font-semibold text-[#4a3a2a]">
+                        {process.env.NEXT_PUBLIC_APP_NAME}
+                    </h1>
+                    <p className="text-xs text-[#8a7660]">
+                        Discover • Plan • Share
+                    </p>
+                </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-2 rounded-full border border-[#d6c3a4] bg-[#fffaf1] px-4 py-2">
-                <span className="h-2 w-2 rounded-full bg-green-500" />
-                <span className="text-sm font-medium text-[#6d5a44]">
-                    Ready to explore
-                </span>
-            </div>
-        </div>
+            <Notifications />
+        </header>
     );
 };
 

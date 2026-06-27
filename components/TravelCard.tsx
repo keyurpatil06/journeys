@@ -7,7 +7,7 @@ const TravelCard = ({ id, title, description, imgURL }: TravelCardProps) => {
     return (
         <Link
             href={`/post/${id}`}
-            className="group block overflow-hidden rounded-3xl border-2 border-amber-800 bg-white shadow-sm hover:shadow-xl"
+            className="group block overflow-hidden rounded-3xl border-2 border-[#cea76a] shadow-xl shadow-[#cea76a]"
         >
             <div className="relative h-72 w-full">
                 <Image

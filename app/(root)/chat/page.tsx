@@ -8,6 +8,7 @@ import InteractiveMap from "@/components/chat/InteractiveMap"
 import { generateTravelPlan } from "@/lib/actions/ai.actions"
 import { resolvePlaceCoordinates } from "@/lib/actions/search.actions"
 import { useSearchParams } from "next/navigation"
+import { getCategoryImage } from "@/lib/utils"
 
 const AiChat = () => {
     const [query, setQuery] = useState("")
@@ -27,6 +28,13 @@ const AiChat = () => {
 
     const searchParams = useSearchParams();
     const searchedQuery = searchParams.get('q');
+
+    useEffect(() => {
+        const q = searchParams.get("q");
+        if (!q || loading) return;
+
+        setQuery(q);
+    }, [searchParams]);
 
     useEffect(() => {
         if (!containerRef.current) return
@@ -69,6 +77,7 @@ const AiChat = () => {
                             const resolvedCoords = await resolvePlaceCoordinates(place.name, result.location);
                             return {
                                 ...place,
+                                image: getCategoryImage(place.category),
                                 coords: resolvedCoords ?? place.coords,
                             };
                         } catch (error) {
@@ -111,9 +120,9 @@ const AiChat = () => {
     }
 
     return (
-        <main className="min-h-screen bg-[#f5efe6] px-6 py-6 lg:px-8">
+        <main className="min-h-screen bg-[#f5efe6] px-3 py-6 lg:px-8">
             <div className="mx-auto grid max-w-400 gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-                <section className="space-y-6">
+                <section className="space-y-6 ">
                     <div className="rounded-4xl border border-[#d6c3a4] bg-[#f7efe1] p-6 shadow-sm">
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                             <div>
@@ -130,7 +139,7 @@ const AiChat = () => {
                         </div>
                     </div>
 
-                    <div className="rounded-4xl border border-[#d6c3a4] bg-[#fffaf1] p-6 shadow-sm">
+                    <div className="rounded-4xl border border-[#d6c3a4] bg-[#fffaf1] p-4 md:p-6 shadow-sm">
                         <div ref={containerRef} className="mb-6 flex max-h-130 flex-col gap-4 overflow-y-auto pr-2">
                             {messages.map((message) => (
                                 <ChatMessage

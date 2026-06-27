@@ -16,7 +16,7 @@ const NearbyPlacesSection = ({ title, items, selectedId, onSelect }: NearbyPlace
                         key={place.id}
                         type="button"
                         onClick={() => onSelect(place.id)}
-                        className={`flex w-full items-start justify-between gap-3 rounded-2xl border px-4 py-4 text-left transition-all duration-200 ${place.id === selectedId ? "border-[#b89b75] bg-[#f3e5d0] shadow-sm" : "border-[#e3d3c0] bg-[#f7efe1] hover:border-[#d6c3a4] hover:bg-[#fffaf1]"}`}
+                        className={`flex w-full items-start justify-between gap-3 rounded-2xl border px-4 py-4 text-left transition-all duration-200 ${place.id === selectedId ? "border-[#b89b75] bg-[#f3e5d0] shadow-sm" : "border-[#e3d3c0] bg-[#f7efe1] hover:border-[#d6c3a4] hover:bg-[#f1e5ce]"}`}
                     >
                         <div>
                             <p className="text-sm font-semibold text-[#4a3a2a]">{place.name}</p>

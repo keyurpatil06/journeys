@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import "leaflet/dist/leaflet.css";
+import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -15,13 +16,18 @@ const geistMono = Geist_Mono({
 
 const outfit = Outfit({
     variable: "--font-outfit",
-    subsets: ["latin"]
-})
+    subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-    title: "Journeys",
+    title: process.env.NEXT_PUBLIC_APP_NAME,
     description: "AI Trip planning app",
+    manifest: "/manifest.webmanifest",
 };
+
+export const viewport: Viewport = {
+    themeColor: "#4A3A2A"
+}
 
 export default function RootLayout({
     children,
@@ -33,7 +39,10 @@ export default function RootLayout({
             lang="en"
             className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} h-full antialiased`}
         >
-            <body className="min-h-full flex flex-col">{children}</body>
+            <body className="min-h-full flex flex-col">
+                <ServiceWorkerRegister />
+                {children}
+            </body>
         </html>
     );
 }

@@ -15,7 +15,7 @@ const page = async ({ params }: { params: { id: string } }) => {
 
     const heroImages = list.places.flatMap((place) => place.images || [])
     const heroLocation = list.places[0]?.name ?? "Global Adventure"
-    const authorName = list.userEmail ? list.userEmail.split("@")[0] : "Guest traveler"
+    const authorName = list.userName ?? "Guest traveler"
     const placeCount = list.places.length
     const hotelSuggestions = list.places.flatMap((place) => place.hotels || []).slice(0, 3)
     const cafeSuggestions = list.places.flatMap((place) => place.cafesAndRestaurants || []).slice(0, 3)
@@ -43,7 +43,7 @@ const page = async ({ params }: { params: { id: string } }) => {
     }))
 
     return (
-        <main className="min-h-screen bg-slate-100 text-slate-900">
+        <main className="min-h-screen bg-[#f5efe6] text-[#4a3a2a]">
             <div className="mx-auto max-w-7xl space-y-10 px-4 py-8 sm:px-6 lg:px-8">
                 <TravelJournalHero
                     images={heroImages}
@@ -58,26 +58,26 @@ const page = async ({ params }: { params: { id: string } }) => {
 
                 <div className="grid gap-8 xl:grid-cols-[2fr_1fr]">
                     <div className="space-y-8">
-                        <section className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-950/5">
+                        <section className="travel-hero-card">
                             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                                 <div>
                                     <p className="text-sm uppercase tracking-[0.35em] text-orange-500">Story overview</p>
                                     <h2 className="mt-4 text-3xl font-semibold text-slate-950">A premium travel journal for your adventure</h2>
                                 </div>
-                                <div className="inline-flex items-center gap-3 rounded-3xl bg-slate-50 px-4 py-3 text-sm text-slate-500 shadow-sm">
+                                <div className="inline-flex items-center whitespace-nowrap gap-3 rounded-3xl bg-[#fffaf1] px-4 py-3 text-sm text-[#8a7660] shadow-sm">
                                     <MapPin className="h-4 w-4 text-orange-500" />
                                     {placeCount} destinations · {heroImages.length} photos
                                 </div>
                             </div>
 
                             <div className="mt-8 grid gap-6 md:grid-cols-2">
-                                <div className="rounded-[2rem] bg-slate-950/5 p-6 text-slate-700 shadow-sm">
+                                <div className="travel-hero-subcard text-[#6b5845]">
                                     <p className="font-semibold text-slate-900">Travel narrative</p>
                                     <p className="mt-3 text-base leading-7 text-slate-600">{list.tripDescription}</p>
                                 </div>
-                                <div className="rounded-[2rem] bg-linear-to-br from-orange-50 via-white to-slate-50 p-6 text-slate-700 shadow-sm">
+                                <div className="travel-hero-subcard bg-linear-to-br from-[#fff7e8] via-[#fffaf1] to-[#f8ebd7] text-[#6b5845]">
                                     <p className="font-semibold text-slate-900">Trip capsule</p>
-                                    <div className="mt-4 space-y-3 text-sm text-slate-600">
+                                    <div className="mt-4 space-y-3 text-sm text-slate-600 tracking-wide">
                                         <p>
                                             <span className="font-medium text-slate-900">Author:</span> {authorName}
                                         </p>
@@ -97,29 +97,25 @@ const page = async ({ params }: { params: { id: string } }) => {
                                 const sectionImages = place.images?.slice(0, 3) ?? []
                                 const coords = [Number(place.lat), Number(place.lon)] as [number, number]
                                 return (
-                                    <article key={place.id} className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-950/5">
-                                        <div className="grid gap-6 lg:grid-cols-[1fr_360px] p-6">
+                                    <article key={place.id} className="overflow-hidden travel-hero-card">
+                                        <div className="grid gap-6 lg:grid-cols-[1fr_360px] p-3">
                                             <div>
                                                 <div className="flex items-center gap-4 text-sm text-slate-500">
-                                                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-orange-50 text-orange-600 shadow-sm">
+                                                    <span className="inline-flex size-10 px-4 font-semibold items-center justify-center rounded-xl bg-orange-100 text-orange-600 border-amber-800 border-2">
                                                         {index + 1}
                                                     </span>
                                                     <div>
-                                                        <p className="text-xs uppercase tracking-[0.35em] text-orange-500">Travel stop</p>
-                                                        <h3 className="mt-2 text-2xl font-semibold text-slate-950">{place.name}</h3>
+                                                        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-orange-500">Travel stop</p>
+                                                        <h3 className="mt-2 text-xl font-semibold text-slate-950">{place.name}</h3>
                                                     </div>
                                                 </div>
-                                                <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">{place.description || "A unique travel experience you won’t forget."}</p>
+                                                <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">{place.description || "A unique travel experience you won't forget."}</p>
 
-                                                <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                                                    <div className="rounded-[1.75rem] bg-slate-50 p-5 shadow-sm">
-                                                        <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Coordinates</p>
-                                                        <p className="mt-3 text-sm text-slate-800">Lat {coords[0].toFixed(5)}</p>
-                                                        <p className="text-sm text-slate-800">Lon {coords[1].toFixed(5)}</p>
-                                                    </div>
-                                                    <div className="rounded-[1.75rem] bg-slate-50 p-5 shadow-sm">
-                                                        <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Mood</p>
-                                                        <p className="mt-3 text-sm text-slate-800">Relaxed, exploratory, and full of local charm.</p>
+                                                <div className="mt-6">
+                                                    <div className="travel-hero-subcard">
+                                                        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-800">Coordinates</p>
+                                                        <p className="mt-3 text-sm text-slate-800">Lat: {coords[0].toFixed(5)}</p>
+                                                        <p className="text-sm text-slate-800">Lon: {coords[1].toFixed(5)}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,7 +127,7 @@ const page = async ({ params }: { params: { id: string } }) => {
                                             </div>
                                         </div>
 
-                                        <div className="grid gap-3 border-t border-slate-200 p-6 lg:grid-cols-3">
+                                        <div className="grid gap-3 border-t border-slate-200 p-3 lg:grid-cols-3">
                                             {sectionImages.length > 0 ? (
                                                 sectionImages.map((src, idx) => (
                                                     <div key={idx} className="overflow-hidden rounded-[1.75rem] bg-slate-900 transition hover:scale-[1.01] duration-300">
@@ -139,7 +135,7 @@ const page = async ({ params }: { params: { id: string } }) => {
                                                     </div>
                                                 ))
                                             ) : (
-                                                <div className="col-span-3 rounded-[1.75rem] bg-slate-100 p-10 text-center text-slate-500">No place images available yet.</div>
+                                                <div className="col-span-3 rounded-[1.75rem] bg-[#f8efe1] p-10 text-center text-[#8a7660]">No place images available yet.</div>
                                             )}
                                         </div>
                                     </article>
@@ -149,7 +145,7 @@ const page = async ({ params }: { params: { id: string } }) => {
                     </div>
 
                     <aside className="space-y-6">
-                        <div className="space-y-5 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-950/5">
+                        <div className="travel-hero-card space-y-5 p-6">
                             <div className="flex items-center justify-between gap-3">
                                 <div>
                                     <p className="text-sm uppercase tracking-[0.35em] text-orange-500">Journey snapshot</p>
@@ -157,20 +153,20 @@ const page = async ({ params }: { params: { id: string } }) => {
                                 </div>
                                 <Sparkles className="h-6 w-6 text-orange-500" />
                             </div>
-                            <div className="rounded-[2rem] overflow-hidden border border-slate-200 bg-slate-950/5 shadow-sm">
+                            <div className="overflow-hidden rounded-[2rem] border border-[#e9dbc5] bg-[#f8efe1] shadow-sm">
                                 <MapViewWrapper mode="interactive" places={mapPlaces} selectedPlaceId={mapPlaces[0]?.id} height="320px" />
                             </div>
-                            <div className="grid gap-3 rounded-[2rem] bg-slate-50 p-5 text-sm text-slate-600">
+                            <div className="grid gap-3 rounded-[2rem] bg-[#fffaf1] p-5 text-sm text-[#6b5845]">
                                 <p className="font-semibold text-slate-900">Designed for discovery</p>
                                 <p>Swipe through the route map and use the curated cards below to find stay and dining inspiration near your journey stops.</p>
                             </div>
                         </div>
 
-                        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-950/5">
+                        <div className="travel-hero-card p-6">
                             <p className="text-sm uppercase tracking-[0.35em] text-orange-500">Nearby stays</p>
                             <div className="mt-5 space-y-4">
                                 {(hotelSuggestions.length ? hotelSuggestions : fallbackHotels).map((hotel) => (
-                                    <div key={hotel.id} className="flex items-start gap-4 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-white">
+                                    <div key={hotel.id} className="travel-hero-list-item">
                                         <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-orange-100 text-orange-600">
                                             <Building2 className="h-6 w-6" />
                                         </div>
@@ -180,11 +176,11 @@ const page = async ({ params }: { params: { id: string } }) => {
                             </div>
                         </div>
 
-                        <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-950/5">
+                        <div className="travel-hero-card p-6">
                             <p className="text-sm uppercase tracking-[0.35em] text-orange-500">Cafes & restaurants</p>
                             <div className="mt-5 space-y-4">
                                 {(cafeSuggestions.length ? cafeSuggestions : fallbackCafes).map((cafe) => (
-                                    <div key={cafe.id} className="flex items-start gap-4 rounded-[1.75rem] border border-slate-200 bg-slate-50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-white">
+                                    <div key={cafe.id} className="travel-hero-list-item">
                                         <div className="flex h-12 w-12 items-center justify-center rounded-3xl bg-amber-100 text-amber-600">
                                             <Coffee className="h-6 w-6" />
                                         </div>

@@ -4,7 +4,7 @@ import { db } from "@/lib/auth";
 
 const { GEOAPIFY_API_KEY, GEOAPIFY_BASE_URL } = process.env;
 
-// TODO: Check response of APIs to see what all it returns
+// TODO: Check response of APIs
 
 export const searchPlaces = async (query: string) => {
     try {

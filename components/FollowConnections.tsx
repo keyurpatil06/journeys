@@ -43,22 +43,22 @@ const FollowConnections = ({ profileId, followers, following, isOwnProfile, isFo
     return (
         <>
             <section className="mt-6 p-4 rounded-[32px] border border-[#d6c3a4] bg-[#f7efe1] shadow-sm">
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-4 max-lg:flex-col">
                     <button
                         type="button"
                         onClick={() => setModalType("followers")}
-                        className="group flex min-w-40 flex-1 items-center justify-between rounded-3xl border border-[#e3d3c0] bg-[#fffaf1] px-6 py-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                        className="group profile-stat-btn"
                     >
-                        <div>
-                            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#9a8267]">
+                        <div className="flex items-center gap-4">
+                            <p className="connections-label">
                                 Followers
                             </p>
-                            <h3 className="mt-2 text-3xl font-bold text-[#4a3a2a]">
+                            <h3 className="connection-metric">
                                 {followers.length}
                             </h3>
                         </div>
 
-                        <div className="rounded-2xl bg-[#f3e5d0] px-3 py-2 text-sm font-medium text-[#6b5845]">
+                        <div className="connection-view">
                             View
                         </div>
                     </button>
@@ -66,18 +66,18 @@ const FollowConnections = ({ profileId, followers, following, isOwnProfile, isFo
                     <button
                         type="button"
                         onClick={() => setModalType("following")}
-                        className="group flex min-w-40 flex-1 items-center justify-between rounded-3xl border border-[#e3d3c0] bg-[#fffaf1] px-6 py-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                        className="group profile-stat-btn"
                     >
-                        <div>
-                            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#9a8267]">
+                        <div className="flex items-center gap-4">
+                            <p className="connections-label">
                                 Following
                             </p>
-                            <h3 className="mt-2 text-3xl font-bold text-[#4a3a2a]">
+                            <h3 className="connection-metric">
                                 {following.length}
                             </h3>
                         </div>
 
-                        <div className="rounded-2xl bg-[#f3e5d0] px-3 py-2 text-sm font-medium text-[#6b5845]">
+                        <div className="connection-view">
                             View
                         </div>
                     </button>
@@ -112,7 +112,7 @@ const FollowConnections = ({ profileId, followers, following, isOwnProfile, isFo
 
             {modalType && (
                 <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm h-screen"
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm h-screen px-4"
                     onClick={() => setModalType(null)}
                 >
                     <div

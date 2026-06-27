@@ -12,7 +12,7 @@ const ChatInput = ({ value, onChange, onSend, loading }: ChatInputProps) => {
                     <p className="text-xs text-[#8a7660]">Ask for an itinerary, budget plan, hotels, cafés or hidden gems.</p>
                 </div>
 
-                <span className="rounded-full border border-[#d6c3a4] bg-[#fffaf1] px-3 py-1 text-xs font-medium text-[#6d5a44]">AI Planner</span>
+                <span className="rounded-full border border-[#d6c3a4] bg-[#fffaf1] px-3 py-1 text-xs font-medium text-[#6d5a44] whitespace-nowrap">AI Planner</span>
             </div>
 
             <textarea

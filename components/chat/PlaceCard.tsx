@@ -1,12 +1,9 @@
 "use client"
 
-import { getCategoryImage } from "@/lib/utils";
 import Image from "next/image";
 
 const PlaceCard = ({ place, selected, onSelect }: PlaceCardProps) => {
-    // const imageSrc = getCategoryImage(place.category || "");
-    const imageSrc = "/assets/images/cafe-1.jpg"
-    
+
     return (
         <button
             type="button"
@@ -15,7 +12,7 @@ const PlaceCard = ({ place, selected, onSelect }: PlaceCardProps) => {
         >
             <div className="aspect-16/10 overflow-hidden bg-[#f3e5d0]">
                 <Image
-                    src={imageSrc}
+                    src={place.image}
                     alt={place.name}
                     width={400}
                     height={250}

@@ -142,80 +142,88 @@
   }
 
   .sign-in {
-    @apply w-full min-h-screen flex flex-col-reverse lg:flex-row justify-between overflow-hidden max-lg:gap-10 font-outfit;
+    @apply min-h-screen w-full bg-[#f5efe6] flex flex-col-reverse lg:flex-row font-outfit overflow-hidden;
 
     .testimonial {
-      @apply bg-gray-100 lg:w-1/2 flex flex-col justify-between lg:h-screen w-full py-10 px-6 lg:pl-10 gap-6;
+      @apply w-full lg:w-1/2 flex flex-col justify-between bg-linear-to-br from-[#4a3a2a] via-[#5d4a3f] to-[#6d5a44] text-[#fffaf1] px-6 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12;
 
       a {
-        @apply flex items-center gap-2.5;
-      }
+        @apply inline-flex items-center gap-3 w-fit;
 
-      h1 {
-        @apply text-xl font-black text-purple-800 tracking-tight;
+        h1 {
+          @apply text-xl sm:text-3xl font-black tracking-wide text-[#fffaf1];
+        }
       }
 
       .description {
-        @apply flex items-center justify-center;
+        @apply flex-1 flex items-center justify-center py-8 lg:py-0;
 
         section {
-          @apply flex flex-col items-center justify-center gap-8 px-6 sm:px-8 w-full max-w-2xl;
+          @apply w-full max-w-2xl flex flex-col items-center gap-8 text-center;
 
           figure {
-            @apply flex items-center gap-1 justify-center;
+            @apply flex items-center justify-center gap-1;
           }
 
           p {
-            @apply text-3xl font-semibold text-gray-900 text-center tracking-tight;
+            @apply text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-[#fffaf1];
           }
 
           article {
-            @apply flex flex-col gap-2.5 items-center;
+            @apply flex flex-col items-center gap-4;
+
+            img {
+              @apply h-16 w-16 rounded-full border-4 border-[#fffaf1]/20 object-cover;
+            }
 
             div {
-              @apply flex flex-col items-center gap-1;
+              @apply space-y-1;
 
               h2 {
-                @apply text-base font-bold text-gray-900;
+                @apply text-lg font-semibold text-[#fffaf1];
               }
 
               p {
-                @apply text-gray-500 font-normal text-sm tracking-tight;
+                @apply text-sm font-normal text-[#f3e5d0];
               }
             }
           }
         }
       }
 
-      p {
-        @apply text-sm font-medium text-gray-500;
+      >p {
+        @apply mt-8 text-center lg:text-left text-sm text-[#d8c7b1];
       }
     }
 
     .google-sign-in {
-      @apply flex items-center justify-center lg:w-1/2 w-full lg:h-screen px-10 py-10;
+      @apply w-full lg:w-1/2 h-screen flex items-center justify-center px-5 py-8 sm:px-8 sm:py-10 lg:px-12 bg-[#f5efe6];
 
       section {
-        @apply rounded-2xl bg-white shadow-lg max-w-xl w-full flex flex-col px-5 py-8 gap-8;
+        @apply w-full max-w-md rounded-[2rem] border border-[#d6c3a4] bg-[#fffaf1] shadow-xl p-6 sm:p-8 flex flex-col gap-8;
 
         a {
-          @apply flex items-center gap-2.5 justify-center;
+          @apply flex items-center justify-center gap-3;
 
           h1 {
-            @apply text-2xl font-black text-purple-800;
+            @apply text-3xl font-black text-[#4a3a2a];
           }
         }
 
         p {
-          @apply text-3xl font-bold text-gray-900 text-center tracking-tight;
+          @apply text-center text-2xl font-bold leading-tight text-[#4a3a2a];
 
           span {
-            @apply text-pink-500;
+            @apply text-[#9c6b3e];
           }
         }
 
         button {
-          @apply w-full flex justify-center items-center gap-2.5 bg-purple-100 border border-gray-200 rounded-full py-4 text-base text-gray-900 font-semibold cursor-pointer tracking-tight disabled:cursor-not-allowed disabled:bg-gray-200;
+          @apply w-full flex items-center justify-center gap-3 rounded-full bg-[#4a3a2a] text-[#fffaf1] py-4 font-semibold transition-all duration-300 hover:bg-[#5d4a3f] hover:shadow-lg active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+        }
+
+        .helper-text {
+          @apply text-center text-sm text-[#8a7660];
         }
       }
     }
@@ -228,5 +236,57 @@
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  .active-tab {
+    @apply mt-4 rounded-4xl border border-[#e3d3c0] bg-[#fcf7ef] p-2 shadow-sm;
+  }
+
+  .active-tab-msg {
+    @apply rounded-3xl border border-dashed border-[#d5c4a7] bg-[#fffaf3] p-8 text-center text-[#816d59];
+  }
+
+  .profile-stat-btn {
+    @apply flex min-w-40 flex-1 items-center justify-between rounded-3xl border border-[#e3d3c0] bg-[#fffaf1] px-6 py-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md;
+  }
+
+  .connections-label {
+    @apply text-xs font-semibold uppercase tracking-[0.25em] text-[#9a8267];
+  }
+
+  .connection-metric {
+    @apply text-3xl font-bold text-[#4a3a2a];
+  }
+
+  .connection-view {
+    @apply rounded-2xl bg-[#f3e5d0] px-3 py-2 text-sm font-medium text-[#6b5845];
+  }
+
+  .hero-banner-btn {
+    @apply absolute top-1/2 max-md:hidden z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-[#fffaf1]/10 text-white backdrop-blur-xl transition-all hover:bg-[#fffaf1]/20;
+  }
+
+  .travel-hero-panel {
+    @apply w-full max-w-sm rounded-[1.25rem] border border-[#f0dfc7]/20 bg-[#fffaf1]/10 p-4 backdrop-blur-xl sm:rounded-[1.5rem] sm:p-5 lg:p-6;
+  }
+
+  .travel-hero-pill {
+    @apply rounded-full border border-[#d6c3a4]/30 bg-[#fffaf1]/15 px-3 py-1.5 backdrop-blur-md sm:px-4 sm:py-2;
+  }
+
+  .travel-hero-caption {
+    @apply text-[0.65rem] uppercase tracking-[0.2em] text-[#e4d4c1] sm:text-xs;
+  }
+
+  .travel-hero-card {
+    @apply rounded-4xl border border-[#d6c3a4] bg-[#fffaf1] p-6 shadow-xl shadow-[#4a3a2a]/5;
+  }
+
+  .travel-hero-subcard {
+    @apply rounded-3xl border border-[#e9dbc5] bg-[#fffaf1] p-5 shadow-sm;
+  }
+
+  .travel-hero-list-item {
+    @apply flex items-center gap-4 rounded-3xl border border-[#e9dbc5] bg-[#fffaf1] p-3 shadow-sm transition hover:-translate-y-0.5 hover:bg-[#fff8ee];
   }
 }

@@ -34,13 +34,17 @@ const LeftSideBar = ({ user }: SidebarProps) => {
                     href="/"
                     className="mx-4 mt-4 flex items-center gap-3 rounded-2xl px-4 py-3 transition bg-amber-300"
                 >
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-700 text-white font-bold">
-                        J
-                    </div>
+                    <Image
+                        src='/assets/icons/logo.svg'
+                        alt='logo'
+                        width={42}
+                        height={42}
+                        className='rounded-xl bg-transparent'
+                    />
 
                     <div>
                         <h1 className="text-lg font-bold text-slate-900">
-                            Journeys
+                            {process.env.NEXT_PUBLIC_APP_NAME}
                         </h1>
                         <p className="text-xs text-slate-500">
                             Explore & Share
